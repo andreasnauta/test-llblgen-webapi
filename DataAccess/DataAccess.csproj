@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Generated Code\DatabaseGeneric\EntityModel.csproj" />
+    <ProjectReference Include="..\Generated Code\DatabaseSpecific\EntityModelDBSpecific.csproj" />
+    <ProjectReference Include="..\Generated Code\Dto.Persistence\Dto.Persistence.csproj" />
+    <ProjectReference Include="..\Generated Code\Dto\Dto.csproj" />
+    <ProjectReference Include="..\Repository\Repository.csproj" />
+  </ItemGroup>
+
+</Project>
