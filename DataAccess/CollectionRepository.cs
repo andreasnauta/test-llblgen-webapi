@@ -8,42 +8,42 @@ using System.Linq;
 
 namespace DataAccess
 {
-    public class SimpleItemRepository : IRepository<SpecificItemDto>
+    public class CollectionRepository : IRepository<CoreCollectionDto>
     {
-        public SimpleItemRepository(string connectionString)
+        public CollectionRepository(string connectionString)
         {
             LLBLGenConfiguration.Setup(connectionString);
         }
 
-        public IQueryable<SpecificItemDto> GetAll()
+        public IQueryable<CoreCollectionDto> GetAll()
         {
             using (var adapter = new DataAccessAdapter())
             {
                 var data = new LinqMetaData(adapter);
 
-                return data.SpecificItem.ProjectToSpecificItemDto();
+                return data.Collection.ProjectToCoreCollectionDto();
             }
         }
 
-        public SpecificItemDto GetById(int id)
+        public CoreCollectionDto GetById(int id)
         {
             using (var adapter = new DataAccessAdapter())
             {
                 var data = new LinqMetaData(adapter);
 
                 //We need to do this extra call as per https://www.llblgen.com/Documentation/5.3/Derived%20Models/dto_llblgen.htm#example-projection-on-database-query
-                var result = data.SpecificItem.Where(x => x.Id == id).ProjectToSpecificItemDto().ToList();
+                var result = data.Collection.Where(x => x.Id == id).ProjectToCoreCollectionDto().ToList();
 
                 return result[0];
             }
         }
 
-        public SpecificItemDto Insert(SpecificItemDto entity)
+        public CoreCollectionDto Insert(CoreCollectionDto entity)
         {
             return InsertOrUpdate(entity);
         }
 
-        public SpecificItemDto Update(SpecificItemDto entity)
+        public CoreCollectionDto Update(CoreCollectionDto entity)
         {
             return InsertOrUpdate(entity);
         }
@@ -54,7 +54,7 @@ namespace DataAccess
             {
                 var data = new LinqMetaData(adapter);
 
-                var entity = data.SpecificItem.Single(x => x.Id == id);
+                var entity = data.Collection.Single(x => x.Id == id);
 
                 if (entity != null)
                 {
@@ -63,28 +63,30 @@ namespace DataAccess
             }
         }
 
-        private SpecificItemDto InsertOrUpdate(SpecificItemDto dto)
+        private CoreCollectionDto InsertOrUpdate(CoreCollectionDto dto)
         {
             using (var adapter = new DataAccessAdapter())
             {
                 var data = new LinqMetaData(adapter);
 
-                var entity = data.SpecificItem.FirstOrDefault(SpecificItemDtoPersistence.CreatePkPredicate(dto));
+                var entity = data.Collection.FirstOrDefault(CoreCollectionDtoPersistence.CreatePkPredicate(dto));
 
                 if (entity == null)
                 {
-                    entity = new SpecificItemEntity();
+                    entity = new CollectionEntity();
                 }
 
-                entity.UpdateFromSpecificItemDto(dto);
+                entity.UpdateFromCoreCollectionDto(dto);
 
                 adapter.SaveEntity(entity, true);
 
                 //We need to do this extra call as per https://www.llblgen.com/Documentation/5.3/Derived%20Models/dto_llblgen.htm#example-projection-on-database-query
-                var result = data.SpecificItem.Where(x => x.Id == entity.Id).ProjectToSpecificItemDto().ToList();
+                var result = data.Collection.Where(x => x.Id == entity.Id).ProjectToCoreCollectionDto().ToList();
 
                 return result[0];
             }
         }
     }
+    
+
 }

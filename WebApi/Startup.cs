@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DataAccess;
+using Dto.DtoClasses;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Repository;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace LLBLGenTest
 {
     public class Startup
     {
+        private readonly string connectionString = "data source=localhost;initial catalog=Natmus;integrated security=True;MultipleActiveResultSets=True;";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +30,9 @@ namespace LLBLGenTest
             {
                 c.SwaggerDoc("v1", new Info { Title = "Test Api", Version = "v1" });
             });
+
+            services.AddScoped<IRepository<SpecificItemDto>>(s => new SpecificItemRepository(connectionString));
+            services.AddScoped<IRepository<CoreCollectionDto>>(s => new CollectionRepository(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

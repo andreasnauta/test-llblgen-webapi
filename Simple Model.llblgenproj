@@ -340,6 +340,17 @@
         </LastUsedPreferences>
       </CodeGenerationCyclePreferences>
       <Documents>
+        <Document Name="CoreCollectionDto">
+          <RootEntity Entity="Core:Collection" />
+          <Fields>
+            <Field Name="Id">
+              <EntityField Name="Id" />
+            </Field>
+            <Field Name="Name">
+              <EntityField Name="Name" />
+            </Field>
+          </Fields>
+        </Document>
         <Document Name="SpecificItemDto">
           <RootEntity Entity="Specific:SpecificItem" />
           <Fields>
