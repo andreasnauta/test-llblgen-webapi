@@ -98,6 +98,66 @@ namespace EntityModel.FactoryClasses
 		}
 	}
 
+	/// <summary>Factory to create new, empty PersonEntity objects.</summary>
+	[Serializable]
+	public partial class PersonEntityFactory : EntityFactoryBase2<PersonEntity> {
+		/// <summary>CTor</summary>
+		public PersonEntityFactory() : base("PersonEntity", EntityModel.EntityType.PersonEntity, true) { }
+		
+		/// <summary>Creates a new PersonEntity instance but uses a special constructor which will set the Fields object of the new IEntity2 instance to the passed in fields object.</summary>
+		/// <param name="fields">Populated IEntityFields2 object for the new IEntity2 to create</param>
+		/// <returns>Fully created and populated (due to the IEntityFields2 object) IEntity2 object</returns>
+		public override IEntity2 Create(IEntityFields2 fields) {
+			IEntity2 toReturn = new PersonEntity(fields);
+			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewPersonUsingFields
+			// __LLBLGENPRO_USER_CODE_REGION_END
+			return toReturn;
+		}
+		#region Included Code
+
+		#endregion
+	}
+
+	/// <summary>Factory to create new, empty ActorEntity objects.</summary>
+	[Serializable]
+	public partial class ActorEntityFactory : EntityFactoryBase2<ActorEntity> {
+		/// <summary>CTor</summary>
+		public ActorEntityFactory() : base("ActorEntity", EntityModel.EntityType.ActorEntity, true) { }
+		
+		/// <summary>Creates a new ActorEntity instance but uses a special constructor which will set the Fields object of the new IEntity2 instance to the passed in fields object.</summary>
+		/// <param name="fields">Populated IEntityFields2 object for the new IEntity2 to create</param>
+		/// <returns>Fully created and populated (due to the IEntityFields2 object) IEntity2 object</returns>
+		public override IEntity2 Create(IEntityFields2 fields) {
+			IEntity2 toReturn = new ActorEntity(fields);
+			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewActorUsingFields
+			// __LLBLGENPRO_USER_CODE_REGION_END
+			return toReturn;
+		}
+		#region Included Code
+
+		#endregion
+	}
+
+	/// <summary>Factory to create new, empty ActorIncidentEntity objects.</summary>
+	[Serializable]
+	public partial class ActorIncidentEntityFactory : EntityFactoryBase2<ActorIncidentEntity> {
+		/// <summary>CTor</summary>
+		public ActorIncidentEntityFactory() : base("ActorIncidentEntity", EntityModel.EntityType.ActorIncidentEntity, false) { }
+		
+		/// <summary>Creates a new ActorIncidentEntity instance but uses a special constructor which will set the Fields object of the new IEntity2 instance to the passed in fields object.</summary>
+		/// <param name="fields">Populated IEntityFields2 object for the new IEntity2 to create</param>
+		/// <returns>Fully created and populated (due to the IEntityFields2 object) IEntity2 object</returns>
+		public override IEntity2 Create(IEntityFields2 fields) {
+			IEntity2 toReturn = new ActorIncidentEntity(fields);
+			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewActorIncidentUsingFields
+			// __LLBLGENPRO_USER_CODE_REGION_END
+			return toReturn;
+		}
+		#region Included Code
+
+		#endregion
+	}
+
 	/// <summary>Factory to create new, empty CollectionEntity objects.</summary>
 	[Serializable]
 	public partial class CollectionEntityFactory : EntityFactoryBase2<CollectionEntity> {
@@ -110,6 +170,26 @@ namespace EntityModel.FactoryClasses
 		public override IEntity2 Create(IEntityFields2 fields) {
 			IEntity2 toReturn = new CollectionEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewCollectionUsingFields
+			// __LLBLGENPRO_USER_CODE_REGION_END
+			return toReturn;
+		}
+		#region Included Code
+
+		#endregion
+	}
+
+	/// <summary>Factory to create new, empty IncidentEntity objects.</summary>
+	[Serializable]
+	public partial class IncidentEntityFactory : EntityFactoryBase2<IncidentEntity> {
+		/// <summary>CTor</summary>
+		public IncidentEntityFactory() : base("IncidentEntity", EntityModel.EntityType.IncidentEntity, false) { }
+		
+		/// <summary>Creates a new IncidentEntity instance but uses a special constructor which will set the Fields object of the new IEntity2 instance to the passed in fields object.</summary>
+		/// <param name="fields">Populated IEntityFields2 object for the new IEntity2 to create</param>
+		/// <returns>Fully created and populated (due to the IEntityFields2 object) IEntity2 object</returns>
+		public override IEntity2 Create(IEntityFields2 fields) {
+			IEntity2 toReturn = new IncidentEntity(fields);
+			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewIncidentUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
 			return toReturn;
 		}
@@ -190,8 +270,20 @@ namespace EntityModel.FactoryClasses
 			IEntityFactory2 factoryToUse = null;
 			switch(entityTypeToCreate)
 			{
+				case EntityModel.EntityType.PersonEntity:
+					factoryToUse = new PersonEntityFactory();
+					break;
+				case EntityModel.EntityType.ActorEntity:
+					factoryToUse = new ActorEntityFactory();
+					break;
+				case EntityModel.EntityType.ActorIncidentEntity:
+					factoryToUse = new ActorIncidentEntityFactory();
+					break;
 				case EntityModel.EntityType.CollectionEntity:
 					factoryToUse = new CollectionEntityFactory();
+					break;
+				case EntityModel.EntityType.IncidentEntity:
+					factoryToUse = new IncidentEntityFactory();
 					break;
 				case EntityModel.EntityType.ItemEntity:
 					factoryToUse = new ItemEntityFactory();

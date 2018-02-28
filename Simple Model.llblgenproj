@@ -133,10 +133,37 @@
   <EntityModel>
     <ValueTypeDefinitions />
     <EntityDefinitions>
+      <EntityDefinition Name="Person" GroupName="Actor" ObjectID="ce24298c-f875-48e3-bc19-bd7322bbc85a" InheritanceType="2">
+        <Fields>
+          <Field Name="Firstname" Type="string" />
+          <Field Name="Lastname" Type="string" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="Actor" GroupName="Core" ObjectID="fabcf645-49b5-4e80-aee1-dcd4909e0141" InheritanceType="2">
+        <Fields>
+          <Field Name="CollectionId" Type="int" IsAutoCreated="true" />
+          <Field Name="Id" Type="int" IsPrimaryKey="true" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="ActorIncident" GroupName="Core" ObjectID="2cc171e1-455e-4059-964e-5daa7f9b9f3c">
+        <Fields>
+          <Field Name="ActorId" Type="int" IsAutoCreated="true" />
+          <Field Name="Id" Type="int" IsPrimaryKey="true" />
+          <Field Name="IncidentId" Type="int" IsAutoCreated="true" />
+        </Fields>
+      </EntityDefinition>
       <EntityDefinition Name="Collection" GroupName="Core" ObjectID="90c2b354-a613-4b1e-90cf-6f2a23cab56e">
         <Fields>
           <Field Name="Id" Type="int" IsPrimaryKey="true" />
           <Field Name="Name" Type="string" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="Incident" GroupName="Core" ObjectID="d7683cf2-11eb-4e29-a911-bf43fdbb2fc6">
+        <Fields>
+          <Field Name="CollectionId" Type="int" IsAutoCreated="true" />
+          <Field Name="Grouping" Type="int" IsOptional="true" />
+          <Field Name="Id" Type="int" IsPrimaryKey="true" />
+          <Field Name="ItemId" Type="int" IsAutoCreated="true" />
         </Fields>
       </EntityDefinition>
       <EntityDefinition Name="Item" GroupName="Core" ObjectID="97be1bb0-7538-43f9-a99d-54b5a5665e3a" InheritanceType="2">
@@ -158,13 +185,40 @@
       </EntityDefinition>
     </EntityDefinitions>
     <Relationships>
+      <NormalRelationship Name="Core.Actor.ActorIncidents-Core.ActorIncident.Actor" Start="Core:Actor" End="Core:ActorIncident" StartNavigator="ActorIncidents" EndNavigator="Actor" Type="2" StartIsPkSide="true" DeleteRuleAction="1">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="ActorId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Core.Collection.Actors-Core.Actor.Collection" Start="Core:Collection" End="Core:Actor" StartNavigator="Actors" EndNavigator="Collection" Type="2" StartIsPkSide="true" DeleteRuleAction="1">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="CollectionId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Core.Collection.Incidents-Core.Incident.Collection" Start="Core:Collection" End="Core:Incident" StartNavigator="Incidents" EndNavigator="Collection" Type="2" StartIsPkSide="true">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="CollectionId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
       <NormalRelationship Name="Core.Collection.Items-Core.Item.Collection" Start="Core:Collection" End="Core:Item" StartNavigator="Items" EndNavigator="Collection" Type="2" StartIsPkSide="true" DeleteRuleAction="1">
         <FieldRelationships>
           <FieldFieldRelationship FkField="CollectionId" PkField="Id" />
         </FieldRelationships>
       </NormalRelationship>
+      <NormalRelationship Name="Core.Incident.ActorIncidents-Core.ActorIncident.Incident" Start="Core:Incident" End="Core:ActorIncident" StartNavigator="ActorIncidents" EndNavigator="Incident" Type="2" StartIsPkSide="true" DeleteRuleAction="1">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="IncidentId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Core.Item.Incidents-Core.Incident.Item" Start="Core:Item" End="Core:Incident" StartNavigator="Incidents" EndNavigator="Item" Type="2" StartIsPkSide="true">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="ItemId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <IndirectRelationship Start="Core:Actor" End="Core:Incident" StartNavigator="IncidentCollectionViaActorIncident" EndNavigator="ActorCollectionViaActorIncident" Relationship1="Core.Actor.ActorIncidents-Core.ActorIncident.Actor" Relationship2="Core.Incident.ActorIncidents-Core.ActorIncident.Incident" />
     </Relationships>
     <InheritanceHierarchies>
+      <InheritanceHierarchy SuperType="Core:Actor" SubType="Actor:Person" />
       <InheritanceHierarchy SuperType="Core:Item" SubType="Domain:DomainItem" />
       <InheritanceHierarchy SuperType="Domain:DomainItem" SubType="Specific:SpecificItem" />
     </InheritanceHierarchies>
@@ -179,13 +233,49 @@
       <Catalogs>
         <Catalog Name="SimpleModel" SyncSource="1">
           <Schemas>
-            <Schema Name="Core" SyncSource="1" LastSyncWithModel="2018-02-28T10:23:10.2115986Z">
+            <Schema Name="Actor" SyncSource="1" LastSyncWithModel="2018-02-28T13:40:06.6169346Z">
               <Tables>
+                <Table Name="Person">
+                  <PkConstraintName Name="PK_ff6ede44c30a985ceb4ad278be1" />
+                  <Fields>
+                    <Field Name="Firstname" Ordinal="1" DbType="12" Length="2147483647" />
+                    <Field Name="Id" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10" />
+                    <Field Name="Lastname" Ordinal="3" DbType="12" Length="2147483647" />
+                  </Fields>
+                </Table>
+              </Tables>
+            </Schema>
+            <Schema Name="Core" SyncSource="1" LastSyncWithModel="2018-02-28T13:40:06.6169346Z">
+              <Tables>
+                <Table Name="Actor">
+                  <PkConstraintName Name="PK_2f1afa94f71a5cfe56bc667a45e" />
+                  <Fields>
+                    <Field Name="CollectionId" Ordinal="1" DbType="8" Precision="10" />
+                    <Field Name="Id" Ordinal="2" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10" />
+                  </Fields>
+                </Table>
+                <Table Name="ActorIncident">
+                  <PkConstraintName Name="PK_bdde2074218b2cb489e076854b6" />
+                  <Fields>
+                    <Field Name="ActorId" Ordinal="1" DbType="8" Precision="10" />
+                    <Field Name="IncidentId" Ordinal="2" DbType="8" Precision="10" />
+                    <Field Name="Id" Ordinal="3" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10" />
+                  </Fields>
+                </Table>
                 <Table Name="Collection">
                   <PkConstraintName Name="PK_8d10ad74c2cb5e6ab8b97a4bd49" />
                   <Fields>
                     <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10" />
                     <Field Name="Name" Ordinal="2" DbType="12" Length="2147483647" />
+                  </Fields>
+                </Table>
+                <Table Name="Incident">
+                  <PkConstraintName Name="PK_c57402c47658caca4550139f517" />
+                  <Fields>
+                    <Field Name="CollectionId" Ordinal="1" DbType="8" Precision="10" />
+                    <Field Name="Grouping" Ordinal="2" IsOptional="true" DbType="8" Precision="10" />
+                    <Field Name="Id" Ordinal="3" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10" />
+                    <Field Name="ItemId" Ordinal="4" DbType="8" Precision="10" />
                   </Fields>
                 </Table>
                 <Table Name="Item">
@@ -198,7 +288,7 @@
                 </Table>
               </Tables>
             </Schema>
-            <Schema Name="Domain" SyncSource="1" LastSyncWithModel="2018-02-28T10:23:10.2115986Z">
+            <Schema Name="Domain" SyncSource="1" LastSyncWithModel="2018-02-28T13:40:06.6169346Z">
               <Tables>
                 <Table Name="DomainItem">
                   <PkConstraintName Name="PK_ade581347618a3a03e945bc69f8" />
@@ -209,7 +299,7 @@
                 </Table>
               </Tables>
             </Schema>
-            <Schema Name="Specific" SyncSource="1" LastSyncWithModel="2018-02-28T10:23:10.2115986Z">
+            <Schema Name="Specific" SyncSource="1" LastSyncWithModel="2018-02-28T13:40:06.6169346Z">
               <Tables>
                 <Table Name="SpecificItem">
                   <PkConstraintName Name="PK_1e57df54a14b46ffdfa2f1a7e87" />
@@ -222,6 +312,36 @@
             </Schema>
           </Schemas>
           <ForeignKeyConstraints>
+            <ForeignKeyConstraint Name="Actor:Person:FK_930af9146f7891519bfd539719f" DeleteRuleAction="1">
+              <FieldPairs>
+                <FieldPair PkField="Core:Actor:Id" FkField="Actor:Person:Id" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Core:Actor:FK_478661c40f1b8793b56a43db518" DeleteRuleAction="1">
+              <FieldPairs>
+                <FieldPair PkField="Core:Collection:Id" FkField="Core:Actor:CollectionId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Core:ActorIncident:FK_86a475f4cfbb06ba18432b53145" DeleteRuleAction="1">
+              <FieldPairs>
+                <FieldPair PkField="Core:Actor:Id" FkField="Core:ActorIncident:ActorId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Core:ActorIncident:FK_a7d67124e8d860cbdc9a4fb9950" DeleteRuleAction="1">
+              <FieldPairs>
+                <FieldPair PkField="Core:Incident:Id" FkField="Core:ActorIncident:IncidentId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Core:Incident:FK_fb86340495bb80a0ec59eb4d91a">
+              <FieldPairs>
+                <FieldPair PkField="Core:Item:Id" FkField="Core:Incident:ItemId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Core:Incident:FK_fc9c98b4cffb675fe16927f55d6">
+              <FieldPairs>
+                <FieldPair PkField="Core:Collection:Id" FkField="Core:Incident:CollectionId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Core:Item:FK_fc808344380a37dec4d633ada36" DeleteRuleAction="1">
               <FieldPairs>
                 <FieldPair PkField="Core:Collection:Id" FkField="Core:Item:CollectionId" />
@@ -245,10 +365,38 @@
   <MappingStores>
     <MappingStore Type="2D18D138-1DD2-467E-86CC-4838250611AE">
       <EntityMappings>
+        <EntityMapping EntityName="Actor:Person" TargetName="SimpleModel:Actor:Person">
+          <FieldMappings>
+            <FieldMapping FieldName="Firstname" TargetFieldName="Firstname" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" />
+            <FieldMapping FieldName="Lastname" TargetFieldName="Lastname" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Core:Actor" TargetName="SimpleModel:Core:Actor">
+          <FieldMappings>
+            <FieldMapping FieldName="CollectionId" TargetFieldName="CollectionId" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SCOPE_IDENTITY()" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Core:ActorIncident" TargetName="SimpleModel:Core:ActorIncident">
+          <FieldMappings>
+            <FieldMapping FieldName="ActorId" TargetFieldName="ActorId" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="IncidentId" TargetFieldName="IncidentId" />
+          </FieldMappings>
+        </EntityMapping>
         <EntityMapping EntityName="Core:Collection" TargetName="SimpleModel:Core:Collection">
           <FieldMappings>
             <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SCOPE_IDENTITY()" />
             <FieldMapping FieldName="Name" TargetFieldName="Name" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Core:Incident" TargetName="SimpleModel:Core:Incident">
+          <FieldMappings>
+            <FieldMapping FieldName="CollectionId" TargetFieldName="CollectionId" />
+            <FieldMapping FieldName="Grouping" TargetFieldName="Grouping" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="ItemId" TargetFieldName="ItemId" />
           </FieldMappings>
         </EntityMapping>
         <EntityMapping EntityName="Core:Item" TargetName="SimpleModel:Core:Item">
@@ -340,6 +488,37 @@
         </LastUsedPreferences>
       </CodeGenerationCyclePreferences>
       <Documents>
+        <Document Name="ActorPersonDto">
+          <RootEntity Entity="Actor:Person" />
+          <Fields>
+            <Field Name="CollectionId">
+              <EntityField Name="CollectionId" />
+            </Field>
+            <Field Name="Firstname">
+              <EntityField Name="Firstname" />
+            </Field>
+            <Field Name="Id">
+              <EntityField Name="Id" />
+            </Field>
+            <Field Name="Lastname">
+              <EntityField Name="Lastname" />
+            </Field>
+          </Fields>
+        </Document>
+        <Document Name="CoreActorIncidentDto">
+          <RootEntity Entity="Core:ActorIncident" />
+          <Fields>
+            <Field Name="ActorId">
+              <EntityField Name="ActorId" />
+            </Field>
+            <Field Name="Id">
+              <EntityField Name="Id" />
+            </Field>
+            <Field Name="IncidentId">
+              <EntityField Name="IncidentId" />
+            </Field>
+          </Fields>
+        </Document>
         <Document Name="CoreCollectionDto">
           <RootEntity Entity="Core:Collection" />
           <Fields>
@@ -348,6 +527,23 @@
             </Field>
             <Field Name="Name">
               <EntityField Name="Name" />
+            </Field>
+          </Fields>
+        </Document>
+        <Document Name="CoreIncidentDto">
+          <RootEntity Entity="Core:Incident" />
+          <Fields>
+            <Field Name="CollectionId">
+              <EntityField Name="CollectionId" />
+            </Field>
+            <Field Name="Grouping">
+              <EntityField Name="Grouping" />
+            </Field>
+            <Field Name="Id">
+              <EntityField Name="Id" />
+            </Field>
+            <Field Name="ItemId">
+              <EntityField Name="ItemId" />
             </Field>
           </Fields>
         </Document>
@@ -375,6 +571,63 @@
             </Field>
             <Field Name="Id">
               <EntityField Name="Id" />
+            </Field>
+            <Field Name="Incidents">
+              <Document Name="Incident">
+                <RootEntity Entity="Core:Incident" NavigatorPath="Incidents" />
+                <Fields>
+                  <Field Name="ActorIncidents">
+                    <Document Name="ActorIncident">
+                      <RootEntity Entity="Core:ActorIncident" NavigatorPath="Incidents,ActorIncidents" />
+                      <Fields>
+                        <Field Name="Actor">
+                          <Document Name="Actor">
+                            <RootEntity Entity="Core:Actor" NavigatorPath="Incidents,ActorIncidents,Actor" />
+                            <Fields>
+                              <Field Name="CollectionId">
+                                <EntityField Name="CollectionId" />
+                              </Field>
+                              <Field Name="Id">
+                                <EntityField Name="Id" />
+                              </Field>
+                            </Fields>
+                            <Subtypes>
+                              <Documents>
+                                <Document Name="ActorActorPerson">
+                                  <RootEntity Entity="Actor:Person" NavigatorPath="Incidents,ActorIncidents,Actor" />
+                                  <Fields>
+                                    <Field Name="Firstname">
+                                      <EntityField Name="Firstname" />
+                                    </Field>
+                                    <Field Name="Lastname">
+                                      <EntityField Name="Lastname" />
+                                    </Field>
+                                  </Fields>
+                                </Document>
+                              </Documents>
+                            </Subtypes>
+                          </Document>
+                        </Field>
+                        <Field Name="ActorId">
+                          <EntityField Name="ActorId" />
+                        </Field>
+                        <Field Name="Id">
+                          <EntityField Name="Id" />
+                        </Field>
+                        <Field Name="IncidentId">
+                          <EntityField Name="IncidentId" />
+                        </Field>
+                      </Fields>
+                    </Document>
+                  </Field>
+                  <Field Name="Grouping">
+                    <EntityField Name="Grouping" />
+                  </Field>
+                  <Field Name="Id">
+                    <EntityField Name="Id" />
+                  </Field>
+                </Fields>
+              </Document>
             </Field>
             <Field Name="Note">
               <EntityField Name="Note" />

@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dto", "Generated Code\Dto\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dto.Persistence", "Generated Code\Dto.Persistence\Dto.Persistence.csproj", "{0E3460E8-B246-4BEA-93C6-DB3BB9B5E7FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{32904725-D1A1-4072-A9FC-97C14390C7D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{32904725-D1A1-4072-A9FC-97C14390C7D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{FFBCB4E7-9308-402C-880E-278E12731560}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{FFBCB4E7-9308-402C-880E-278E12731560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -46,10 +46,40 @@ namespace EntityModel.DatabaseSpecific
 		private void Init()
 		{
 			this.InitClass();
+			InitPersonEntityMappings();
+			InitActorEntityMappings();
+			InitActorIncidentEntityMappings();
 			InitCollectionEntityMappings();
+			InitIncidentEntityMappings();
 			InitItemEntityMappings();
 			InitDomainItemEntityMappings();
 			InitSpecificItemEntityMappings();
+		}
+
+		/// <summary>Inits PersonEntity's mappings</summary>
+		private void InitPersonEntityMappings()
+		{
+			this.AddElementMapping("PersonEntity", @"SimpleModel", @"Actor", "Person", 3, 0);
+			this.AddElementFieldMapping("PersonEntity", "Id", "Id", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("PersonEntity", "Firstname", "Firstname", false, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 1);
+			this.AddElementFieldMapping("PersonEntity", "Lastname", "Lastname", false, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 2);
+		}
+
+		/// <summary>Inits ActorEntity's mappings</summary>
+		private void InitActorEntityMappings()
+		{
+			this.AddElementMapping("ActorEntity", @"SimpleModel", @"Core", "Actor", 2, 0);
+			this.AddElementFieldMapping("ActorEntity", "CollectionId", "CollectionId", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("ActorEntity", "Id", "Id", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 1);
+		}
+
+		/// <summary>Inits ActorIncidentEntity's mappings</summary>
+		private void InitActorIncidentEntityMappings()
+		{
+			this.AddElementMapping("ActorIncidentEntity", @"SimpleModel", @"Core", "ActorIncident", 3, 0);
+			this.AddElementFieldMapping("ActorIncidentEntity", "ActorId", "ActorId", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("ActorIncidentEntity", "Id", "Id", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 1);
+			this.AddElementFieldMapping("ActorIncidentEntity", "IncidentId", "IncidentId", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 2);
 		}
 
 		/// <summary>Inits CollectionEntity's mappings</summary>
@@ -58,6 +88,16 @@ namespace EntityModel.DatabaseSpecific
 			this.AddElementMapping("CollectionEntity", @"SimpleModel", @"Core", "Collection", 2, 0);
 			this.AddElementFieldMapping("CollectionEntity", "Id", "Id", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 0);
 			this.AddElementFieldMapping("CollectionEntity", "Name", "Name", false, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 1);
+		}
+
+		/// <summary>Inits IncidentEntity's mappings</summary>
+		private void InitIncidentEntityMappings()
+		{
+			this.AddElementMapping("IncidentEntity", @"SimpleModel", @"Core", "Incident", 4, 0);
+			this.AddElementFieldMapping("IncidentEntity", "CollectionId", "CollectionId", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("IncidentEntity", "Grouping", "Grouping", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
+			this.AddElementFieldMapping("IncidentEntity", "Id", "Id", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 2);
+			this.AddElementFieldMapping("IncidentEntity", "ItemId", "ItemId", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
 		}
 
 		/// <summary>Inits ItemEntity's mappings</summary>

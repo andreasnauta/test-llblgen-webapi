@@ -10,6 +10,44 @@ using System;
 
 namespace EntityModel
 {
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: Person.</summary>
+	public enum PersonFieldIndex
+	{
+		///<summary>CollectionId. Inherited from Actor</summary>
+		CollectionId,
+		///<summary>Id. Inherited from Actor</summary>
+		Id_Actor,
+		///<summary>Id. </summary>
+		Id,
+		///<summary>Firstname. </summary>
+		Firstname,
+		///<summary>Lastname. </summary>
+		Lastname,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: Actor.</summary>
+	public enum ActorFieldIndex
+	{
+		///<summary>CollectionId. </summary>
+		CollectionId,
+		///<summary>Id. </summary>
+		Id,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: ActorIncident.</summary>
+	public enum ActorIncidentFieldIndex
+	{
+		///<summary>ActorId. </summary>
+		ActorId,
+		///<summary>Id. </summary>
+		Id,
+		///<summary>IncidentId. </summary>
+		IncidentId,
+		/// <summary></summary>
+		AmountOfFields
+	}
 	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: Collection.</summary>
 	public enum CollectionFieldIndex
 	{
@@ -17,6 +55,20 @@ namespace EntityModel
 		Id,
 		///<summary>Name. </summary>
 		Name,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: Incident.</summary>
+	public enum IncidentFieldIndex
+	{
+		///<summary>CollectionId. </summary>
+		CollectionId,
+		///<summary>Grouping. </summary>
+		Grouping,
+		///<summary>Id. </summary>
+		Id,
+		///<summary>ItemId. </summary>
+		ItemId,
 		/// <summary></summary>
 		AmountOfFields
 	}
@@ -74,8 +126,16 @@ namespace EntityModel
 	/// <summary>Enum definition for all the entity types defined in this namespace. Used by the entityfields factory.</summary>
 	public enum EntityType
 	{
+		///<summary>Person</summary>
+		PersonEntity,
+		///<summary>Actor</summary>
+		ActorEntity,
+		///<summary>ActorIncident</summary>
+		ActorIncidentEntity,
 		///<summary>Collection</summary>
 		CollectionEntity,
+		///<summary>Incident</summary>
+		IncidentEntity,
 		///<summary>Item</summary>
 		ItemEntity,
 		///<summary>DomainItem</summary>

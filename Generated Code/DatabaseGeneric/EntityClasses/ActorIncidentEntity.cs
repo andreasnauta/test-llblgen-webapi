@@ -22,16 +22,15 @@ namespace EntityModel.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	/// <summary>Entity class which represents the entity 'Collection'.<br/><br/></summary>
+	/// <summary>Entity class which represents the entity 'ActorIncident'.<br/><br/></summary>
 	[Serializable]
-	public partial class CollectionEntity : CommonEntityBase
+	public partial class ActorIncidentEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
 		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
-		private EntityCollection<ActorEntity> _actors;
-		private EntityCollection<IncidentEntity> _incidents;
-		private EntityCollection<ItemEntity> _items;
+		private ActorEntity _actor;
+		private IncidentEntity _incident;
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
@@ -44,23 +43,21 @@ namespace EntityModel.EntityClasses
 		/// <summary>All names of fields mapped onto a relation. Usable for in-memory filtering</summary>
 		public static partial class MemberNames
 		{
-			/// <summary>Member name Actors</summary>
-			public static readonly string Actors = "Actors";
-			/// <summary>Member name Incidents</summary>
-			public static readonly string Incidents = "Incidents";
-			/// <summary>Member name Items</summary>
-			public static readonly string Items = "Items";
+			/// <summary>Member name Actor</summary>
+			public static readonly string Actor = "Actor";
+			/// <summary>Member name Incident</summary>
+			public static readonly string Incident = "Incident";
 		}
 		#endregion
 		
 		/// <summary> Static CTor for setting up custom property hashtables. Is executed before the first instance of this entity class or derived classes is constructed. </summary>
-		static CollectionEntity()
+		static ActorIncidentEntity()
 		{
 			SetupCustomPropertyHashtables();
 		}
 		
 		/// <summary> CTor</summary>
-		public CollectionEntity():base("CollectionEntity")
+		public ActorIncidentEntity():base("ActorIncidentEntity")
 		{
 			InitClassEmpty(null, null);
 		}
@@ -68,32 +65,32 @@ namespace EntityModel.EntityClasses
 		/// <summary> CTor</summary>
 		/// <remarks>For framework usage.</remarks>
 		/// <param name="fields">Fields object to set as the fields for this entity.</param>
-		public CollectionEntity(IEntityFields2 fields):base("CollectionEntity")
+		public ActorIncidentEntity(IEntityFields2 fields):base("ActorIncidentEntity")
 		{
 			InitClassEmpty(null, fields);
 		}
 
 		/// <summary> CTor</summary>
-		/// <param name="validator">The custom validator object for this CollectionEntity</param>
-		public CollectionEntity(IValidator validator):base("CollectionEntity")
+		/// <param name="validator">The custom validator object for this ActorIncidentEntity</param>
+		public ActorIncidentEntity(IValidator validator):base("ActorIncidentEntity")
 		{
 			InitClassEmpty(validator, null);
 		}
 				
 		/// <summary> CTor</summary>
-		/// <param name="id">PK value for Collection which data should be fetched into this Collection object</param>
+		/// <param name="id">PK value for ActorIncident which data should be fetched into this ActorIncident object</param>
 		/// <remarks>The entity is not fetched by this constructor. Use a DataAccessAdapter for that.</remarks>
-		public CollectionEntity(System.Int32 id):base("CollectionEntity")
+		public ActorIncidentEntity(System.Int32 id):base("ActorIncidentEntity")
 		{
 			InitClassEmpty(null, null);
 			this.Id = id;
 		}
 
 		/// <summary> CTor</summary>
-		/// <param name="id">PK value for Collection which data should be fetched into this Collection object</param>
-		/// <param name="validator">The custom validator object for this CollectionEntity</param>
+		/// <param name="id">PK value for ActorIncident which data should be fetched into this ActorIncident object</param>
+		/// <param name="validator">The custom validator object for this ActorIncidentEntity</param>
 		/// <remarks>The entity is not fetched by this constructor. Use a DataAccessAdapter for that.</remarks>
-		public CollectionEntity(System.Int32 id, IValidator validator):base("CollectionEntity")
+		public ActorIncidentEntity(System.Int32 id, IValidator validator):base("ActorIncidentEntity")
 		{
 			InitClassEmpty(validator, null);
 			this.Id = id;
@@ -103,19 +100,44 @@ namespace EntityModel.EntityClasses
 		/// <param name="info"></param>
 		/// <param name="context"></param>
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		protected CollectionEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+		protected ActorIncidentEntity(SerializationInfo info, StreamingContext context) : base(info, context)
 		{
 			if(SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
-				_actors = (EntityCollection<ActorEntity>)info.GetValue("_actors", typeof(EntityCollection<ActorEntity>));
-				_incidents = (EntityCollection<IncidentEntity>)info.GetValue("_incidents", typeof(EntityCollection<IncidentEntity>));
-				_items = (EntityCollection<ItemEntity>)info.GetValue("_items", typeof(EntityCollection<ItemEntity>));
+				_actor = (ActorEntity)info.GetValue("_actor", typeof(ActorEntity));
+				if(_actor!=null)
+				{
+					_actor.AfterSave+=new EventHandler(OnEntityAfterSave);
+				}
+				_incident = (IncidentEntity)info.GetValue("_incident", typeof(IncidentEntity));
+				if(_incident!=null)
+				{
+					_incident.AfterSave+=new EventHandler(OnEntityAfterSave);
+				}
 				this.FixupDeserialization(FieldInfoProviderSingleton.GetInstance());
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
 		}
 
+		
+		/// <summary>Performs the desync setup when an FK field has been changed. The entity referenced based on the FK field will be dereferenced and sync info will be removed.</summary>
+		/// <param name="fieldIndex">The fieldindex.</param>
+		protected override void PerformDesyncSetupFKFieldChange(int fieldIndex)
+		{
+			switch((ActorIncidentFieldIndex)fieldIndex)
+			{
+				case ActorIncidentFieldIndex.ActorId:
+					DesetupSyncActor(true, false);
+					break;
+				case ActorIncidentFieldIndex.IncidentId:
+					DesetupSyncIncident(true, false);
+					break;
+				default:
+					base.PerformDesyncSetupFKFieldChange(fieldIndex);
+					break;
+			}
+		}
 
 		/// <summary> Sets the related entity property to the entity specified. If the property is a collection, it will add the entity specified to that collection.</summary>
 		/// <param name="propertyName">Name of the property.</param>
@@ -125,14 +147,11 @@ namespace EntityModel.EntityClasses
 		{
 			switch(propertyName)
 			{
-				case "Actors":
-					this.Actors.Add((ActorEntity)entity);
+				case "Actor":
+					this.Actor = (ActorEntity)entity;
 					break;
-				case "Incidents":
-					this.Incidents.Add((IncidentEntity)entity);
-					break;
-				case "Items":
-					this.Items.Add((ItemEntity)entity);
+				case "Incident":
+					this.Incident = (IncidentEntity)entity;
 					break;
 				default:
 					this.OnSetRelatedEntityProperty(propertyName, entity);
@@ -156,14 +175,11 @@ namespace EntityModel.EntityClasses
 			RelationCollection toReturn = new RelationCollection();
 			switch(fieldName)
 			{
-				case "Actors":
-					toReturn.Add(Relations.ActorEntityUsingCollectionId);
+				case "Actor":
+					toReturn.Add(Relations.ActorEntityUsingActorId);
 					break;
-				case "Incidents":
-					toReturn.Add(Relations.IncidentEntityUsingCollectionId);
-					break;
-				case "Items":
-					toReturn.Add(Relations.ItemEntityUsingCollectionId);
+				case "Incident":
+					toReturn.Add(Relations.IncidentEntityUsingIncidentId);
 					break;
 				default:
 					break;				
@@ -193,14 +209,11 @@ namespace EntityModel.EntityClasses
 		{
 			switch(fieldName)
 			{
-				case "Actors":
-					this.Actors.Add((ActorEntity)relatedEntity);
+				case "Actor":
+					SetupSyncActor(relatedEntity);
 					break;
-				case "Incidents":
-					this.Incidents.Add((IncidentEntity)relatedEntity);
-					break;
-				case "Items":
-					this.Items.Add((ItemEntity)relatedEntity);
+				case "Incident":
+					SetupSyncIncident(relatedEntity);
 					break;
 				default:
 					break;
@@ -215,14 +228,11 @@ namespace EntityModel.EntityClasses
 		{
 			switch(fieldName)
 			{
-				case "Actors":
-					this.PerformRelatedEntityRemoval(this.Actors, relatedEntity, signalRelatedEntityManyToOne);
+				case "Actor":
+					DesetupSyncActor(false, true);
 					break;
-				case "Incidents":
-					this.PerformRelatedEntityRemoval(this.Incidents, relatedEntity, signalRelatedEntityManyToOne);
-					break;
-				case "Items":
-					this.PerformRelatedEntityRemoval(this.Items, relatedEntity, signalRelatedEntityManyToOne);
+				case "Incident":
+					DesetupSyncIncident(false, true);
 					break;
 				default:
 					break;
@@ -243,6 +253,14 @@ namespace EntityModel.EntityClasses
 		protected override List<IEntity2> GetDependentRelatedEntities()
 		{
 			List<IEntity2> toReturn = new List<IEntity2>();
+			if(_actor!=null)
+			{
+				toReturn.Add(_actor);
+			}
+			if(_incident!=null)
+			{
+				toReturn.Add(_incident);
+			}
 			return toReturn;
 		}
 		
@@ -251,9 +269,6 @@ namespace EntityModel.EntityClasses
 		protected override List<IEntityCollection2> GetMemberEntityCollections()
 		{
 			List<IEntityCollection2> toReturn = new List<IEntityCollection2>();
-			toReturn.Add(this.Actors);
-			toReturn.Add(this.Incidents);
-			toReturn.Add(this.Items);
 			return toReturn;
 		}
 
@@ -265,9 +280,8 @@ namespace EntityModel.EntityClasses
 		{
 			if (SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
-				info.AddValue("_actors", ((_actors!=null) && (_actors.Count>0) && !this.MarkedForDeletion)?_actors:null);
-				info.AddValue("_incidents", ((_incidents!=null) && (_incidents.Count>0) && !this.MarkedForDeletion)?_incidents:null);
-				info.AddValue("_items", ((_items!=null) && (_items.Count>0) && !this.MarkedForDeletion)?_items:null);
+				info.AddValue("_actor", (!this.MarkedForDeletion?_actor:null));
+				info.AddValue("_incident", (!this.MarkedForDeletion?_incident:null));
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
@@ -280,33 +294,24 @@ namespace EntityModel.EntityClasses
 		/// <returns>A list of all the EntityRelation objects the type of this instance has. Hierarchy relations are excluded.</returns>
 		protected override List<IEntityRelation> GetAllRelations()
 		{
-			return new CollectionRelations().GetAllRelations();
+			return new ActorIncidentRelations().GetAllRelations();
 		}
 
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'Actor' to this entity.</summary>
+		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'Actor' to this entity.</summary>
 		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoActors()
+		public virtual IRelationPredicateBucket GetRelationInfoActor()
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(ActorFields.CollectionId, null, ComparisonOperator.Equal, this.Id));
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(ActorFields.Id, null, ComparisonOperator.Equal, this.ActorId));
 			return bucket;
 		}
 
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'Incident' to this entity.</summary>
+		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'Incident' to this entity.</summary>
 		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoIncidents()
+		public virtual IRelationPredicateBucket GetRelationInfoIncident()
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(IncidentFields.CollectionId, null, ComparisonOperator.Equal, this.Id));
-			return bucket;
-		}
-
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'Item' to this entity.</summary>
-		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoItems()
-		{
-			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(ItemFields.CollectionId, null, ComparisonOperator.Equal, this.Id));
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(IncidentFields.Id, null, ComparisonOperator.Equal, this.IncidentId));
 			return bucket;
 		}
 		
@@ -314,7 +319,7 @@ namespace EntityModel.EntityClasses
 		/// <summary>Creates a new instance of the factory related to this entity</summary>
 		protected override IEntityFactory2 CreateEntityFactory()
 		{
-			return EntityFactoryCache2.GetEntityFactory(typeof(CollectionEntityFactory));
+			return EntityFactoryCache2.GetEntityFactory(typeof(ActorIncidentEntityFactory));
 		}
 
 		/// <summary>Adds the member collections to the collections queue (base first)</summary>
@@ -322,9 +327,6 @@ namespace EntityModel.EntityClasses
 		protected override void AddToMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue) 
 		{
 			base.AddToMemberEntityCollectionsQueue(collectionsQueue);
-			collectionsQueue.Enqueue(this._actors);
-			collectionsQueue.Enqueue(this._incidents);
-			collectionsQueue.Enqueue(this._items);
 		}
 		
 		/// <summary>Gets the member collections queue from the queue (base first)</summary>
@@ -332,9 +334,6 @@ namespace EntityModel.EntityClasses
 		protected override void GetFromMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue)
 		{
 			base.GetFromMemberEntityCollectionsQueue(collectionsQueue);
-			this._actors = (EntityCollection<ActorEntity>) collectionsQueue.Dequeue();
-			this._incidents = (EntityCollection<IncidentEntity>) collectionsQueue.Dequeue();
-			this._items = (EntityCollection<ItemEntity>) collectionsQueue.Dequeue();
 
 		}
 		
@@ -343,9 +342,6 @@ namespace EntityModel.EntityClasses
 		protected override bool HasPopulatedMemberEntityCollections()
 		{
 			bool toReturn = false;
-			toReturn |=(this._actors != null);
-			toReturn |=(this._incidents != null);
-			toReturn |=(this._items != null);
 			return toReturn ? true : base.HasPopulatedMemberEntityCollections();
 		}
 		
@@ -355,9 +351,6 @@ namespace EntityModel.EntityClasses
 		protected override void CreateMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue, Queue<bool> requiredQueue) 
 		{
 			base.CreateMemberEntityCollectionsQueue(collectionsQueue, requiredQueue);
-			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<ActorEntity>(EntityFactoryCache2.GetEntityFactory(typeof(ActorEntityFactory))) : null);
-			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<IncidentEntity>(EntityFactoryCache2.GetEntityFactory(typeof(IncidentEntityFactory))) : null);
-			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<ItemEntity>(EntityFactoryCache2.GetEntityFactory(typeof(ItemEntityFactory))) : null);
 		}
 
 		/// <summary>Gets all related data objects, stored by name. The name is the field name mapped onto the relation for that particular data element.</summary>
@@ -365,9 +358,8 @@ namespace EntityModel.EntityClasses
 		protected override Dictionary<string, object> GetRelatedData()
 		{
 			Dictionary<string, object> toReturn = new Dictionary<string, object>();
-			toReturn.Add("Actors", _actors);
-			toReturn.Add("Incidents", _incidents);
-			toReturn.Add("Items", _items);
+			toReturn.Add("Actor", _actor);
+			toReturn.Add("Incident", _incident);
 			return toReturn;
 		}
 
@@ -390,14 +382,70 @@ namespace EntityModel.EntityClasses
 			_fieldsCustomProperties = new Dictionary<string, Dictionary<string, string>>();
 			Dictionary<string, string> fieldHashtable;
 			fieldHashtable = new Dictionary<string, string>();
+			_fieldsCustomProperties.Add("ActorId", fieldHashtable);
+			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("Id", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
-			_fieldsCustomProperties.Add("Name", fieldHashtable);
+			_fieldsCustomProperties.Add("IncidentId", fieldHashtable);
 		}
 		#endregion
 
+		/// <summary> Removes the sync logic for member _actor</summary>
+		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
+		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
+		private void DesetupSyncActor(bool signalRelatedEntity, bool resetFKFields)
+		{
+			DesetupSync(signalRelatedEntity, resetFKFields, ref _actor, new PropertyChangedEventHandler(OnActorPropertyChanged), "Actor", "ActorIncidents", EntityModel.RelationClasses.StaticActorIncidentRelations.ActorEntityUsingActorIdStatic, true, new int[] { (int)ActorIncidentFieldIndex.ActorId });
+		}
+
+		/// <summary> setups the sync logic for member _actor</summary>
+		/// <param name="relatedEntity">Instance to set as the related entity of type entityType</param>
+		private void SetupSyncActor(IEntityCore relatedEntity)
+		{
+			SetupSync(relatedEntity, ref _actor, new PropertyChangedEventHandler( OnActorPropertyChanged ), "Actor", "ActorIncidents", EntityModel.RelationClasses.StaticActorIncidentRelations.ActorEntityUsingActorIdStatic, true, new string[] {  }, new int[] { (int)ActorIncidentFieldIndex.ActorId }); 
+		}
+		
+		/// <summary>Handles property change events of properties in a related entity.</summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnActorPropertyChanged( object sender, PropertyChangedEventArgs e )
+		{
+			switch( e.PropertyName )
+			{
+				default:
+					break;
+			}
+		}
+
+		/// <summary> Removes the sync logic for member _incident</summary>
+		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
+		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
+		private void DesetupSyncIncident(bool signalRelatedEntity, bool resetFKFields)
+		{
+			DesetupSync(signalRelatedEntity, resetFKFields, ref _incident, new PropertyChangedEventHandler(OnIncidentPropertyChanged), "Incident", "ActorIncidents", EntityModel.RelationClasses.StaticActorIncidentRelations.IncidentEntityUsingIncidentIdStatic, true, new int[] { (int)ActorIncidentFieldIndex.IncidentId });
+		}
+
+		/// <summary> setups the sync logic for member _incident</summary>
+		/// <param name="relatedEntity">Instance to set as the related entity of type entityType</param>
+		private void SetupSyncIncident(IEntityCore relatedEntity)
+		{
+			SetupSync(relatedEntity, ref _incident, new PropertyChangedEventHandler( OnIncidentPropertyChanged ), "Incident", "ActorIncidents", EntityModel.RelationClasses.StaticActorIncidentRelations.IncidentEntityUsingIncidentIdStatic, true, new string[] {  }, new int[] { (int)ActorIncidentFieldIndex.IncidentId }); 
+		}
+		
+		/// <summary>Handles property change events of properties in a related entity.</summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnIncidentPropertyChanged( object sender, PropertyChangedEventArgs e )
+		{
+			switch( e.PropertyName )
+			{
+				default:
+					break;
+			}
+		}
+
 		/// <summary> Initializes the class with empty data, as if it is a new Entity.</summary>
-		/// <param name="validator">The validator object for this CollectionEntity</param>
+		/// <param name="validator">The validator object for this ActorIncidentEntity</param>
 		/// <param name="fields">Fields of this entity</param>
 		private void InitClassEmpty(IValidator validator, IEntityFields2 fields)
 		{
@@ -415,9 +463,9 @@ namespace EntityModel.EntityClasses
 
 		#region Class Property Declarations
 		/// <summary> The relations object holding all relations of this entity with other entity classes.</summary>
-		public  static CollectionRelations Relations
+		public  static ActorIncidentRelations Relations
 		{
-			get	{ return new CollectionRelations(); }
+			get	{ return new ActorIncidentRelations(); }
 		}
 		
 		/// <summary> The custom properties for this entity type.</summary>
@@ -429,23 +477,16 @@ namespace EntityModel.EntityClasses
 
 		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Actor' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathActors
+		public static IPrefetchPathElement2 PrefetchPathActor
 		{
-			get	{ return new PrefetchPathElement2( new EntityCollection<ActorEntity>(EntityFactoryCache2.GetEntityFactory(typeof(ActorEntityFactory))), (IEntityRelation)GetRelationsForField("Actors")[0], (int)EntityModel.EntityType.CollectionEntity, (int)EntityModel.EntityType.ActorEntity, 0, null, null, null, null, "Actors", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
+			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(ActorEntityFactory))),	(IEntityRelation)GetRelationsForField("Actor")[0], (int)EntityModel.EntityType.ActorIncidentEntity, (int)EntityModel.EntityType.ActorEntity, 0, null, null, null, null, "Actor", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
 		}
 
 		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Incident' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathIncidents
+		public static IPrefetchPathElement2 PrefetchPathIncident
 		{
-			get	{ return new PrefetchPathElement2( new EntityCollection<IncidentEntity>(EntityFactoryCache2.GetEntityFactory(typeof(IncidentEntityFactory))), (IEntityRelation)GetRelationsForField("Incidents")[0], (int)EntityModel.EntityType.CollectionEntity, (int)EntityModel.EntityType.IncidentEntity, 0, null, null, null, null, "Incidents", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
-		}
-
-		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Item' for this entity.</summary>
-		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathItems
-		{
-			get	{ return new PrefetchPathElement2( new EntityCollection<ItemEntity>(EntityFactoryCache2.GetEntityFactory(typeof(ItemEntityFactory))), (IEntityRelation)GetRelationsForField("Items")[0], (int)EntityModel.EntityType.CollectionEntity, (int)EntityModel.EntityType.ItemEntity, 0, null, null, null, null, "Items", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
+			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(IncidentEntityFactory))),	(IEntityRelation)GetRelationsForField("Incident")[0], (int)EntityModel.EntityType.ActorIncidentEntity, (int)EntityModel.EntityType.IncidentEntity, 0, null, null, null, null, "Incident", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
 		}
 
 
@@ -472,45 +513,70 @@ namespace EntityModel.EntityClasses
 			get { return FieldsCustomProperties;}
 		}
 
-		/// <summary> The Id property of the Entity Collection<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "Collection"."Id"<br/>
+		/// <summary> The ActorId property of the Entity ActorIncident<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "ActorIncident"."ActorId"<br/>
+		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
+		/// Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
+		public virtual System.Int32 ActorId
+		{
+			get { return (System.Int32)GetValue((int)ActorIncidentFieldIndex.ActorId, true); }
+			set	{ SetValue((int)ActorIncidentFieldIndex.ActorId, value); }
+		}
+
+		/// <summary> The Id property of the Entity ActorIncident<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "ActorIncident"."Id"<br/>
 		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): false, true, true</remarks>
 		public virtual System.Int32 Id
 		{
-			get { return (System.Int32)GetValue((int)CollectionFieldIndex.Id, true); }
-			set	{ SetValue((int)CollectionFieldIndex.Id, value); }
+			get { return (System.Int32)GetValue((int)ActorIncidentFieldIndex.Id, true); }
+			set	{ SetValue((int)ActorIncidentFieldIndex.Id, value); }
 		}
 
-		/// <summary> The Name property of the Entity Collection<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "Collection"."Name"<br/>
-		/// Table field type characteristics (type, precision, scale, length): NVarChar, 0, 0, 2147483647<br/>
+		/// <summary> The IncidentId property of the Entity ActorIncident<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "ActorIncident"."IncidentId"<br/>
+		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
-		public virtual System.String Name
+		public virtual System.Int32 IncidentId
 		{
-			get { return (System.String)GetValue((int)CollectionFieldIndex.Name, true); }
-			set	{ SetValue((int)CollectionFieldIndex.Name, value); }
+			get { return (System.Int32)GetValue((int)ActorIncidentFieldIndex.IncidentId, true); }
+			set	{ SetValue((int)ActorIncidentFieldIndex.IncidentId, value); }
 		}
 
-		/// <summary> Gets the EntityCollection with the related entities of type 'ActorEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
-		[TypeContainedAttribute(typeof(ActorEntity))]
-		public virtual EntityCollection<ActorEntity> Actors
+		/// <summary> Gets / sets related entity of type 'ActorEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
+		[Browsable(false)]
+		public virtual ActorEntity Actor
 		{
-			get { return GetOrCreateEntityCollection<ActorEntity, ActorEntityFactory>("Collection", true, false, ref _actors);	}
+			get	{ return _actor; }
+			set
+			{
+				if(this.IsDeserializing)
+				{
+					SetupSyncActor(value);
+				}
+				else
+				{
+					SetSingleRelatedEntityNavigator(value, "ActorIncidents", "Actor", _actor, true); 
+				}
+			}
 		}
 
-		/// <summary> Gets the EntityCollection with the related entities of type 'IncidentEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
-		[TypeContainedAttribute(typeof(IncidentEntity))]
-		public virtual EntityCollection<IncidentEntity> Incidents
+		/// <summary> Gets / sets related entity of type 'IncidentEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
+		[Browsable(false)]
+		public virtual IncidentEntity Incident
 		{
-			get { return GetOrCreateEntityCollection<IncidentEntity, IncidentEntityFactory>("Collection", true, false, ref _incidents);	}
-		}
-
-		/// <summary> Gets the EntityCollection with the related entities of type 'ItemEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
-		[TypeContainedAttribute(typeof(ItemEntity))]
-		public virtual EntityCollection<ItemEntity> Items
-		{
-			get { return GetOrCreateEntityCollection<ItemEntity, ItemEntityFactory>("Collection", true, false, ref _items);	}
+			get	{ return _incident; }
+			set
+			{
+				if(this.IsDeserializing)
+				{
+					SetupSyncIncident(value);
+				}
+				else
+				{
+					SetSingleRelatedEntityNavigator(value, "ActorIncidents", "Incident", _incident, true); 
+				}
+			}
 		}
 	
 		/// <summary> Gets the type of the hierarchy this entity is in. </summary>
@@ -529,7 +595,7 @@ namespace EntityModel.EntityClasses
 		[Browsable(false), XmlIgnore]
 		protected override int LLBLGenProEntityTypeValue 
 		{ 
-			get { return (int)EntityModel.EntityType.CollectionEntity; }
+			get { return (int)EntityModel.EntityType.ActorIncidentEntity; }
 		}
 
 		#endregion

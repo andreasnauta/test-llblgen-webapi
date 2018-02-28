@@ -105,10 +105,34 @@ namespace EntityModel.FactoryClasses
 		}
 		
 
+		/// <summary>Creates and returns a new EntityQuery for the Person entity</summary>
+		public EntityQuery<PersonEntity> Person
+		{
+			get { return Create<PersonEntity>(); }
+		}
+
+		/// <summary>Creates and returns a new EntityQuery for the Actor entity</summary>
+		public EntityQuery<ActorEntity> Actor
+		{
+			get { return Create<ActorEntity>(); }
+		}
+
+		/// <summary>Creates and returns a new EntityQuery for the ActorIncident entity</summary>
+		public EntityQuery<ActorIncidentEntity> ActorIncident
+		{
+			get { return Create<ActorIncidentEntity>(); }
+		}
+
 		/// <summary>Creates and returns a new EntityQuery for the Collection entity</summary>
 		public EntityQuery<CollectionEntity> Collection
 		{
 			get { return Create<CollectionEntity>(); }
+		}
+
+		/// <summary>Creates and returns a new EntityQuery for the Incident entity</summary>
+		public EntityQuery<IncidentEntity> Incident
+		{
+			get { return Create<IncidentEntity>(); }
 		}
 
 		/// <summary>Creates and returns a new EntityQuery for the Item entity</summary>

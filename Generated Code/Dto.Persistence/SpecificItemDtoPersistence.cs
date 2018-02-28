@@ -53,6 +53,22 @@ namespace Dto.Persistence
 				CollectionId = p__0.CollectionId,
 				Description = p__0.Description,
 				Id = p__0.Id,
+				Incidents = p__0.Incidents.Select(p__1 => new Dto.DtoClasses.SpecificItemDtoTypes.Incident()
+				{
+					ActorIncidents = p__1.ActorIncidents.Select(p__2 => new Dto.DtoClasses.SpecificItemDtoTypes.IncidentTypes.ActorIncident()
+					{
+						Actor = new Dto.DtoClasses.SpecificItemDtoTypes.IncidentTypes.ActorIncidentTypes.Actor()
+						{
+							CollectionId = p__2.Actor.CollectionId,
+							Id = p__2.Actor.Id,
+						},
+						ActorId = p__2.ActorId,
+						Id = p__2.Id,
+						IncidentId = p__2.IncidentId,
+					}).ToList(),
+					Grouping = p__1.Grouping,
+					Id = p__1.Id,
+				}).ToList(),
 				Note = p__0.Note,
 				OldItemId = p__0.OldItemId,
 			};

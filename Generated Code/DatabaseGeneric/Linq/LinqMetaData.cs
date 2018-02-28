@@ -61,8 +61,20 @@ namespace EntityModel.Linq
 			IDataSource toReturn = null;
 			switch((EntityModel.EntityType)typeOfEntity)
 			{
+				case EntityModel.EntityType.PersonEntity:
+					toReturn = this.Person;
+					break;
+				case EntityModel.EntityType.ActorEntity:
+					toReturn = this.Actor;
+					break;
+				case EntityModel.EntityType.ActorIncidentEntity:
+					toReturn = this.ActorIncident;
+					break;
 				case EntityModel.EntityType.CollectionEntity:
 					toReturn = this.Collection;
+					break;
+				case EntityModel.EntityType.IncidentEntity:
+					toReturn = this.Incident;
 					break;
 				case EntityModel.EntityType.ItemEntity:
 					toReturn = this.Item;
@@ -89,10 +101,34 @@ namespace EntityModel.Linq
 			return new DataSource2<TEntity>(_adapterToUse, new ElementCreator(), _customFunctionMappings, _contextToUse);
 		}
 
+		/// <summary>returns the datasource to use in a Linq query when targeting PersonEntity instances in the database.</summary>
+		public DataSource2<PersonEntity> Person
+		{
+			get { return new DataSource2<PersonEntity>(_adapterToUse, new ElementCreator(), _customFunctionMappings, _contextToUse); }
+		}
+		
+		/// <summary>returns the datasource to use in a Linq query when targeting ActorEntity instances in the database.</summary>
+		public DataSource2<ActorEntity> Actor
+		{
+			get { return new DataSource2<ActorEntity>(_adapterToUse, new ElementCreator(), _customFunctionMappings, _contextToUse); }
+		}
+		
+		/// <summary>returns the datasource to use in a Linq query when targeting ActorIncidentEntity instances in the database.</summary>
+		public DataSource2<ActorIncidentEntity> ActorIncident
+		{
+			get { return new DataSource2<ActorIncidentEntity>(_adapterToUse, new ElementCreator(), _customFunctionMappings, _contextToUse); }
+		}
+		
 		/// <summary>returns the datasource to use in a Linq query when targeting CollectionEntity instances in the database.</summary>
 		public DataSource2<CollectionEntity> Collection
 		{
 			get { return new DataSource2<CollectionEntity>(_adapterToUse, new ElementCreator(), _customFunctionMappings, _contextToUse); }
+		}
+		
+		/// <summary>returns the datasource to use in a Linq query when targeting IncidentEntity instances in the database.</summary>
+		public DataSource2<IncidentEntity> Incident
+		{
+			get { return new DataSource2<IncidentEntity>(_adapterToUse, new ElementCreator(), _customFunctionMappings, _contextToUse); }
 		}
 		
 		/// <summary>returns the datasource to use in a Linq query when targeting ItemEntity instances in the database.</summary>

@@ -49,7 +49,11 @@ namespace EntityModel.HelperClasses
 		private void Init()
 		{
 			this.InitClass();
+			InitPersonEntityInfos();
+			InitActorEntityInfos();
+			InitActorIncidentEntityInfos();
 			InitCollectionEntityInfos();
+			InitIncidentEntityInfos();
 			InitItemEntityInfos();
 			InitDomainItemEntityInfos();
 			InitSpecificItemEntityInfos();
@@ -57,12 +61,44 @@ namespace EntityModel.HelperClasses
 			this.ConstructElementFieldStructures(InheritanceInfoProviderSingleton.GetInstance());
 		}
 
+		/// <summary>Inits PersonEntity's FieldInfo objects</summary>
+		private void InitPersonEntityInfos()
+		{
+			this.AddFieldIndexEnumForElementName(typeof(PersonFieldIndex), "PersonEntity");
+			this.AddElementFieldInfo("PersonEntity", "Id", typeof(System.Int32), true, false, false, false,  (int)PersonFieldIndex.Id, 0, 0, 10);
+			this.AddElementFieldInfo("PersonEntity", "Firstname", typeof(System.String), false, false, false, false,  (int)PersonFieldIndex.Firstname, 2147483647, 0, 0);
+			this.AddElementFieldInfo("PersonEntity", "Lastname", typeof(System.String), false, false, false, false,  (int)PersonFieldIndex.Lastname, 2147483647, 0, 0);
+		}
+		/// <summary>Inits ActorEntity's FieldInfo objects</summary>
+		private void InitActorEntityInfos()
+		{
+			this.AddFieldIndexEnumForElementName(typeof(ActorFieldIndex), "ActorEntity");
+			this.AddElementFieldInfo("ActorEntity", "CollectionId", typeof(System.Int32), false, true, false, false,  (int)ActorFieldIndex.CollectionId, 0, 0, 10);
+			this.AddElementFieldInfo("ActorEntity", "Id", typeof(System.Int32), true, false, false, false,  (int)ActorFieldIndex.Id, 0, 0, 10);
+		}
+		/// <summary>Inits ActorIncidentEntity's FieldInfo objects</summary>
+		private void InitActorIncidentEntityInfos()
+		{
+			this.AddFieldIndexEnumForElementName(typeof(ActorIncidentFieldIndex), "ActorIncidentEntity");
+			this.AddElementFieldInfo("ActorIncidentEntity", "ActorId", typeof(System.Int32), false, true, false, false,  (int)ActorIncidentFieldIndex.ActorId, 0, 0, 10);
+			this.AddElementFieldInfo("ActorIncidentEntity", "Id", typeof(System.Int32), true, false, false, false,  (int)ActorIncidentFieldIndex.Id, 0, 0, 10);
+			this.AddElementFieldInfo("ActorIncidentEntity", "IncidentId", typeof(System.Int32), false, true, false, false,  (int)ActorIncidentFieldIndex.IncidentId, 0, 0, 10);
+		}
 		/// <summary>Inits CollectionEntity's FieldInfo objects</summary>
 		private void InitCollectionEntityInfos()
 		{
 			this.AddFieldIndexEnumForElementName(typeof(CollectionFieldIndex), "CollectionEntity");
 			this.AddElementFieldInfo("CollectionEntity", "Id", typeof(System.Int32), true, false, false, false,  (int)CollectionFieldIndex.Id, 0, 0, 10);
 			this.AddElementFieldInfo("CollectionEntity", "Name", typeof(System.String), false, false, false, false,  (int)CollectionFieldIndex.Name, 2147483647, 0, 0);
+		}
+		/// <summary>Inits IncidentEntity's FieldInfo objects</summary>
+		private void InitIncidentEntityInfos()
+		{
+			this.AddFieldIndexEnumForElementName(typeof(IncidentFieldIndex), "IncidentEntity");
+			this.AddElementFieldInfo("IncidentEntity", "CollectionId", typeof(System.Int32), false, true, false, false,  (int)IncidentFieldIndex.CollectionId, 0, 0, 10);
+			this.AddElementFieldInfo("IncidentEntity", "Grouping", typeof(Nullable<System.Int32>), false, false, false, true,  (int)IncidentFieldIndex.Grouping, 0, 0, 10);
+			this.AddElementFieldInfo("IncidentEntity", "Id", typeof(System.Int32), true, false, false, false,  (int)IncidentFieldIndex.Id, 0, 0, 10);
+			this.AddElementFieldInfo("IncidentEntity", "ItemId", typeof(System.Int32), false, true, false, false,  (int)IncidentFieldIndex.ItemId, 0, 0, 10);
 		}
 		/// <summary>Inits ItemEntity's FieldInfo objects</summary>
 		private void InitItemEntityInfos()

@@ -34,6 +34,20 @@ namespace EntityModel.RelationClasses
 
 		#region Class Property Declarations
 
+		/// <summary>Returns a new IEntityRelation object, between DomainItemEntity and IncidentEntity over the 1:n relation they have, using the relation between the fields:
+		/// DomainItem.Id - Incident.ItemId
+		/// </summary>
+		public override IEntityRelation IncidentEntityUsingItemId
+		{
+			get
+			{
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "Incidents" , true);
+				relation.AddEntityFieldPair(DomainItemFields.Id, IncidentFields.ItemId);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("DomainItemEntity", true);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("IncidentEntity", false);
+				return relation;
+			}
+		}
 
 
 		/// <summary>Returns a new IEntityRelation object, between DomainItemEntity and CollectionEntity over the m:1 relation they have, using the relation between the fields:
@@ -106,6 +120,7 @@ namespace EntityModel.RelationClasses
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticDomainItemRelations
 	{
+		internal static readonly IEntityRelation IncidentEntityUsingItemIdStatic = new DomainItemRelations().IncidentEntityUsingItemId;
 		internal static readonly IEntityRelation CollectionEntityUsingCollectionIdStatic = new DomainItemRelations().CollectionEntityUsingCollectionId;
 
 		/// <summary>CTor</summary>

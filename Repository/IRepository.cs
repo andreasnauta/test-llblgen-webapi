@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Repository
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        IQueryable<TEntity> GetAll();
+        List<TEntity> GetAll();
         TEntity GetById(int id);
         TEntity Insert(TEntity entity);
         TEntity Update(TEntity entity);

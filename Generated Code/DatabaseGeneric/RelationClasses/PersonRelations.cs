@@ -16,15 +16,15 @@ using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace EntityModel.RelationClasses
 {
-	/// <summary>Implements the relations factory for the entity: SpecificItem. </summary>
-	public partial class SpecificItemRelations : DomainItemRelations
+	/// <summary>Implements the relations factory for the entity: Person. </summary>
+	public partial class PersonRelations : ActorRelations
 	{
 		/// <summary>CTor</summary>
-		public SpecificItemRelations()
+		public PersonRelations()
 		{
 		}
 
-		/// <summary>Gets all relations of the SpecificItemEntity as a list of IEntityRelation objects.</summary>
+		/// <summary>Gets all relations of the PersonEntity as a list of IEntityRelation objects.</summary>
 		/// <returns>a list of IEntityRelation objects</returns>
 		public override List<IEntityRelation> GetAllRelations()
 		{
@@ -34,44 +34,44 @@ namespace EntityModel.RelationClasses
 
 		#region Class Property Declarations
 
-		/// <summary>Returns a new IEntityRelation object, between SpecificItemEntity and IncidentEntity over the 1:n relation they have, using the relation between the fields:
-		/// SpecificItem.Id - Incident.ItemId
+		/// <summary>Returns a new IEntityRelation object, between PersonEntity and ActorIncidentEntity over the 1:n relation they have, using the relation between the fields:
+		/// Person.Id - ActorIncident.ActorId
 		/// </summary>
-		public override IEntityRelation IncidentEntityUsingItemId
+		public override IEntityRelation ActorIncidentEntityUsingActorId
 		{
 			get
 			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "Incidents" , true);
-				relation.AddEntityFieldPair(SpecificItemFields.Id, IncidentFields.ItemId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("SpecificItemEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("IncidentEntity", false);
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "ActorIncidents" , true);
+				relation.AddEntityFieldPair(PersonFields.Id, ActorIncidentFields.ActorId);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("PersonEntity", true);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ActorIncidentEntity", false);
 				return relation;
 			}
 		}
 
 
-		/// <summary>Returns a new IEntityRelation object, between SpecificItemEntity and CollectionEntity over the m:1 relation they have, using the relation between the fields:
-		/// SpecificItem.CollectionId - Collection.Id
+		/// <summary>Returns a new IEntityRelation object, between PersonEntity and CollectionEntity over the m:1 relation they have, using the relation between the fields:
+		/// Person.CollectionId - Collection.Id
 		/// </summary>
 		public override IEntityRelation CollectionEntityUsingCollectionId
 		{
 			get
 			{
 				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Collection", false);
-				relation.AddEntityFieldPair(CollectionFields.Id, SpecificItemFields.CollectionId);
+				relation.AddEntityFieldPair(CollectionFields.Id, PersonFields.CollectionId);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CollectionEntity", false);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("SpecificItemEntity", true);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("PersonEntity", true);
 				return relation;
 			}
 		}
 
-		/// <summary>Returns a new IEntityRelation object, between SpecificItemEntity and DomainItemEntity over the 1:1 relation they have, which is used to build a target per entity hierarchy</summary>
-		internal IEntityRelation RelationToSuperTypeDomainItemEntity
+		/// <summary>Returns a new IEntityRelation object, between PersonEntity and ActorEntity over the 1:1 relation they have, which is used to build a target per entity hierarchy</summary>
+		internal IEntityRelation RelationToSuperTypeActorEntity
 		{
 			get
 			{
 				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToOne, false);
-				relation.AddEntityFieldPair(DomainItemFields.Id, SpecificItemFields.Id);
+				relation.AddEntityFieldPair(ActorFields.Id, PersonFields.Id);
 				relation.IsHierarchyRelation=true;
 				return relation;
 			}
@@ -90,7 +90,7 @@ namespace EntityModel.RelationClasses
 		/// <returns>relation which makes the current entity a subtype of its supertype entity or null if not applicable/found</returns>
 		public override IEntityRelation GetSuperTypeRelation()
 		{
-			return this.RelationToSuperTypeDomainItemEntity;
+			return this.RelationToSuperTypeActorEntity;
 		}
 
 		#endregion
@@ -101,13 +101,13 @@ namespace EntityModel.RelationClasses
 	}
 	
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
-	internal static class StaticSpecificItemRelations
+	internal static class StaticPersonRelations
 	{
-		internal static readonly IEntityRelation IncidentEntityUsingItemIdStatic = new SpecificItemRelations().IncidentEntityUsingItemId;
-		internal static readonly IEntityRelation CollectionEntityUsingCollectionIdStatic = new SpecificItemRelations().CollectionEntityUsingCollectionId;
+		internal static readonly IEntityRelation ActorIncidentEntityUsingActorIdStatic = new PersonRelations().ActorIncidentEntityUsingActorId;
+		internal static readonly IEntityRelation CollectionEntityUsingCollectionIdStatic = new PersonRelations().CollectionEntityUsingCollectionId;
 
 		/// <summary>CTor</summary>
-		static StaticSpecificItemRelations()
+		static StaticPersonRelations()
 		{
 		}
 	}

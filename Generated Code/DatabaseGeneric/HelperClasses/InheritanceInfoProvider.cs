@@ -53,6 +53,8 @@ namespace EntityModel.HelperClasses
 		/// <summary>Method which initializes the internal datastores with the structure of hierarchical types.</summary>
 		private void Init()
 		{
+			this.AddEntityInfo("PersonEntity", "ActorEntity", new PersonRelations(), new PersonEntityFactory(), 1-1);
+			this.AddEntityInfo("ActorEntity", string.Empty, new ActorRelations(), new ActorEntityFactory());
 			this.AddEntityInfo("ItemEntity", string.Empty, new ItemRelations(), new ItemEntityFactory());
 			this.AddEntityInfo("DomainItemEntity", "ItemEntity", new DomainItemRelations(), new DomainItemEntityFactory(), 1-1);
 			this.AddEntityInfo("SpecificItemEntity", "DomainItemEntity", new SpecificItemRelations(), new SpecificItemEntityFactory(), 1-1);

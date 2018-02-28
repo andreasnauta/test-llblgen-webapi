@@ -4,6 +4,7 @@ using EntityModel.DatabaseSpecific;
 using EntityModel.EntityClasses;
 using EntityModel.Linq;
 using Repository;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess
@@ -15,13 +16,13 @@ namespace DataAccess
             LLBLGenConfiguration.Setup(connectionString);
         }
 
-        public IQueryable<SpecificItemDto> GetAll()
+        public List<SpecificItemDto> GetAll()
         {
             using (var adapter = new DataAccessAdapter())
             {
                 var data = new LinqMetaData(adapter);
 
-                return data.SpecificItem.ProjectToSpecificItemDto();
+                return data.SpecificItem.ProjectToSpecificItemDto().ToList();
             }
         }
 

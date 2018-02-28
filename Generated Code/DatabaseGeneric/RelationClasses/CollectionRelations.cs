@@ -29,11 +29,43 @@ namespace EntityModel.RelationClasses
 		public virtual List<IEntityRelation> GetAllRelations()
 		{
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
+			toReturn.Add(this.ActorEntityUsingCollectionId);
+			toReturn.Add(this.IncidentEntityUsingCollectionId);
 			toReturn.Add(this.ItemEntityUsingCollectionId);
 			return toReturn;
 		}
 
 		#region Class Property Declarations
+
+		/// <summary>Returns a new IEntityRelation object, between CollectionEntity and ActorEntity over the 1:n relation they have, using the relation between the fields:
+		/// Collection.Id - Actor.CollectionId
+		/// </summary>
+		public virtual IEntityRelation ActorEntityUsingCollectionId
+		{
+			get
+			{
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "Actors" , true);
+				relation.AddEntityFieldPair(CollectionFields.Id, ActorFields.CollectionId);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CollectionEntity", true);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ActorEntity", false);
+				return relation;
+			}
+		}
+
+		/// <summary>Returns a new IEntityRelation object, between CollectionEntity and IncidentEntity over the 1:n relation they have, using the relation between the fields:
+		/// Collection.Id - Incident.CollectionId
+		/// </summary>
+		public virtual IEntityRelation IncidentEntityUsingCollectionId
+		{
+			get
+			{
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "Incidents" , true);
+				relation.AddEntityFieldPair(CollectionFields.Id, IncidentFields.CollectionId);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CollectionEntity", true);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("IncidentEntity", false);
+				return relation;
+			}
+		}
 
 		/// <summary>Returns a new IEntityRelation object, between CollectionEntity and ItemEntity over the 1:n relation they have, using the relation between the fields:
 		/// Collection.Id - Item.CollectionId
@@ -65,6 +97,8 @@ namespace EntityModel.RelationClasses
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticCollectionRelations
 	{
+		internal static readonly IEntityRelation ActorEntityUsingCollectionIdStatic = new CollectionRelations().ActorEntityUsingCollectionId;
+		internal static readonly IEntityRelation IncidentEntityUsingCollectionIdStatic = new CollectionRelations().IncidentEntityUsingCollectionId;
 		internal static readonly IEntityRelation ItemEntityUsingCollectionIdStatic = new CollectionRelations().ItemEntityUsingCollectionId;
 
 		/// <summary>CTor</summary>

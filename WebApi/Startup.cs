@@ -33,6 +33,9 @@ namespace LLBLGenTest
 
             services.AddScoped<IRepository<SpecificItemDto>>(s => new SpecificItemRepository(connectionString));
             services.AddScoped<IRepository<CoreCollectionDto>>(s => new CollectionRepository(connectionString));
+            services.AddScoped<IRepository<ActorPersonDto>>(s => new ActorPersonRepository(connectionString));
+            services.AddScoped<IRepository<CoreIncidentDto>>(s => new IncidentRepository(connectionString));
+            services.AddScoped<IRepository<CoreActorIncidentDto>>(s => new ActorIncidentRepository(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

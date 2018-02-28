@@ -43,6 +43,8 @@ namespace EntityModel.EntityClasses
 		{
 			/// <summary>Member name Collection</summary>
 			public static readonly string Collection = "Collection";
+			/// <summary>Member name Incidents</summary>
+			public static readonly string Incidents = "Incidents";
 		}
 		#endregion
 		

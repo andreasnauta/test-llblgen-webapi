@@ -13,6 +13,71 @@ using EntityModel;
 
 namespace EntityModel.HelperClasses
 {
+	/// <summary>Field Creation Class for entity PersonEntity</summary>
+	public partial class PersonFields
+	{
+		/// <summary>Creates a new PersonEntity.CollectionId field instance</summary>
+		public static EntityField2 CollectionId
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(PersonFieldIndex.CollectionId);}
+		}
+		/// <summary>Creates a new PersonEntity.Id field instance</summary>
+		public static EntityField2 Id_Actor
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(PersonFieldIndex.Id_Actor);}
+		}
+		/// <summary>Creates a new PersonEntity.Id field instance</summary>
+		public static EntityField2 Id
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(PersonFieldIndex.Id);}
+		}
+		/// <summary>Creates a new PersonEntity.Firstname field instance</summary>
+		public static EntityField2 Firstname
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(PersonFieldIndex.Firstname);}
+		}
+		/// <summary>Creates a new PersonEntity.Lastname field instance</summary>
+		public static EntityField2 Lastname
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(PersonFieldIndex.Lastname);}
+		}
+	}
+
+	/// <summary>Field Creation Class for entity ActorEntity</summary>
+	public partial class ActorFields
+	{
+		/// <summary>Creates a new ActorEntity.CollectionId field instance</summary>
+		public static EntityField2 CollectionId
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(ActorFieldIndex.CollectionId);}
+		}
+		/// <summary>Creates a new ActorEntity.Id field instance</summary>
+		public static EntityField2 Id
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(ActorFieldIndex.Id);}
+		}
+	}
+
+	/// <summary>Field Creation Class for entity ActorIncidentEntity</summary>
+	public partial class ActorIncidentFields
+	{
+		/// <summary>Creates a new ActorIncidentEntity.ActorId field instance</summary>
+		public static EntityField2 ActorId
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(ActorIncidentFieldIndex.ActorId);}
+		}
+		/// <summary>Creates a new ActorIncidentEntity.Id field instance</summary>
+		public static EntityField2 Id
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(ActorIncidentFieldIndex.Id);}
+		}
+		/// <summary>Creates a new ActorIncidentEntity.IncidentId field instance</summary>
+		public static EntityField2 IncidentId
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(ActorIncidentFieldIndex.IncidentId);}
+		}
+	}
+
 	/// <summary>Field Creation Class for entity CollectionEntity</summary>
 	public partial class CollectionFields
 	{
@@ -25,6 +90,31 @@ namespace EntityModel.HelperClasses
 		public static EntityField2 Name
 		{
 			get { return (EntityField2)EntityFieldFactory.Create(CollectionFieldIndex.Name);}
+		}
+	}
+
+	/// <summary>Field Creation Class for entity IncidentEntity</summary>
+	public partial class IncidentFields
+	{
+		/// <summary>Creates a new IncidentEntity.CollectionId field instance</summary>
+		public static EntityField2 CollectionId
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(IncidentFieldIndex.CollectionId);}
+		}
+		/// <summary>Creates a new IncidentEntity.Grouping field instance</summary>
+		public static EntityField2 Grouping
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(IncidentFieldIndex.Grouping);}
+		}
+		/// <summary>Creates a new IncidentEntity.Id field instance</summary>
+		public static EntityField2 Id
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(IncidentFieldIndex.Id);}
+		}
+		/// <summary>Creates a new IncidentEntity.ItemId field instance</summary>
+		public static EntityField2 ItemId
+		{
+			get { return (EntityField2)EntityFieldFactory.Create(IncidentFieldIndex.ItemId);}
 		}
 	}
 

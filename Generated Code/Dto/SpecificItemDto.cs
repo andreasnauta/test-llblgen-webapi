@@ -25,6 +25,9 @@ namespace Dto.DtoClasses
 		/// <summary>Gets or sets the Id field. Derived from Entity Model Field 'Core.Item.Id'</summary>
 		[DataMember]
 		public System.Int32 Id { get; set; }
+		/// <summary>Gets or sets the Incidents field. </summary>
+		[DataMember]
+		public List<SpecificItemDtoTypes.Incident> Incidents { get; set; }
 		/// <summary>Gets or sets the Note field. Derived from Entity Model Field 'Specific.SpecificItem.Note'</summary>
 		[DataMember]
 		public System.String Note { get; set; }
@@ -46,6 +49,73 @@ namespace Dto.DtoClasses
 			/// <summary>Gets or sets the Name field. Derived from Entity Model Field 'Core.Collection.Name'</summary>
 			[DataMember]
 			public System.String Name { get; set; }
+		}
+
+		/// <summary> DTO class which is derived from the entity 'Core.Incident (Incidents)'.</summary>
+		[Serializable]
+		[DataContract]
+		public partial class Incident
+		{
+			/// <summary>Gets or sets the ActorIncidents field. </summary>
+			[DataMember]
+			public List<IncidentTypes.ActorIncident> ActorIncidents { get; set; }
+			/// <summary>Gets or sets the Grouping field. Derived from Entity Model Field 'Core.Incident.Grouping'</summary>
+			[DataMember]
+			public Nullable<System.Int32> Grouping { get; set; }
+			/// <summary>Gets or sets the Id field. Derived from Entity Model Field 'Core.Incident.Id'</summary>
+			[DataMember]
+			public System.Int32 Id { get; set; }
+		}
+
+		namespace IncidentTypes
+		{
+			/// <summary> DTO class which is derived from the entity 'Core.ActorIncident (Incidents.ActorIncidents)'.</summary>
+			[Serializable]
+			[DataContract]
+			public partial class ActorIncident
+			{
+				/// <summary>Gets or sets the Actor field. </summary>
+				[DataMember]
+				public ActorIncidentTypes.Actor Actor { get; set; }
+				/// <summary>Gets or sets the ActorId field. Derived from Entity Model Field 'Core.ActorIncident.ActorId (FK)'</summary>
+				[DataMember]
+				public System.Int32 ActorId { get; set; }
+				/// <summary>Gets or sets the Id field. Derived from Entity Model Field 'Core.ActorIncident.Id'</summary>
+				[DataMember]
+				public System.Int32 Id { get; set; }
+				/// <summary>Gets or sets the IncidentId field. Derived from Entity Model Field 'Core.ActorIncident.IncidentId (FK)'</summary>
+				[DataMember]
+				public System.Int32 IncidentId { get; set; }
+			}
+
+			namespace ActorIncidentTypes
+			{
+				/// <summary> DTO class which is derived from the entity 'Core.Actor (Incidents.ActorIncidents.Actor)'.</summary>
+				[Serializable]
+				[DataContract]
+				public partial class Actor
+				{
+					/// <summary>Gets or sets the CollectionId field. Derived from Entity Model Field 'Core.Actor.CollectionId (FK)'</summary>
+					[DataMember]
+					public System.Int32 CollectionId { get; set; }
+					/// <summary>Gets or sets the Id field. Derived from Entity Model Field 'Core.Actor.Id'</summary>
+					[DataMember]
+					public System.Int32 Id { get; set; }
+				}
+
+				/// <summary> DTO class which is derived from the entity 'Actor.Person (Incidents.ActorIncidents.Actor)'.</summary>
+				[Serializable]
+				[DataContract]
+				public partial class ActorActorPerson: Actor
+				{
+					/// <summary>Gets or sets the Firstname field. Derived from Entity Model Field 'Actor.Person.Firstname'</summary>
+					[DataMember]
+					public System.String Firstname { get; set; }
+					/// <summary>Gets or sets the Lastname field. Derived from Entity Model Field 'Actor.Person.Lastname'</summary>
+					[DataMember]
+					public System.String Lastname { get; set; }
+				}
+			}
 		}
 	}
 
