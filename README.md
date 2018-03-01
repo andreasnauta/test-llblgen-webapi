@@ -4,7 +4,7 @@ This is a test repository for testing ASP.NET Core Web Application with LLBLGen.
 # Requirements
 - SQL Server 2017 Express Edition.
 
-# Usage (not tested on other computers yet)
+# Usage
 1. Run the script in the SQL folder to create the database.
 2. Change the connection string in the StartUp.cs class in the WebAPI project (if it is anything else than localhost).
 3. Run the WebAPI project.
