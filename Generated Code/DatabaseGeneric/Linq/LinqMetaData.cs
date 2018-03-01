@@ -150,6 +150,14 @@ namespace EntityModel.Linq
 		}
 		
 
+		/// <summary>Gets the query to fetch the typed list Specific.SpecificItemTypedList</summary>
+		/// <returns>IQueryable</returns>
+		public IQueryable<EntityModel.TypedListClasses.SpecificItemTypedListRow> GetSpecificItemTypedListTypedList()
+		{
+			var current0 = this.SpecificItem;
+			return current0.Select(v=>new EntityModel.TypedListClasses.SpecificItemTypedListRow() { CollectionId = v.CollectionId, Description = v.Description, Id = v.Id, Note = v.Note, OldItemId = v.OldItemId });
+		}
+
 		#region Class Property Declarations
 		/// <summary> Gets / sets the IDataAccessAdapter to use for the queries created with this meta data object.</summary>
 		/// <remarks> Be aware that the IDataAccessAdapter object set via this property is kept alive by the LLBLGenProQuery objects created with this meta data

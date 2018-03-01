@@ -26,7 +26,7 @@ namespace DataAccess
             }
         }
 
-        public CoreCollectionDto GetById(int id)
+        public CoreCollectionDto Get(int id)
         {
             using (var adapter = new DataAccessAdapter())
             {

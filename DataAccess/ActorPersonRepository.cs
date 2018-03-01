@@ -26,7 +26,7 @@ namespace DataAccess
             }
         }
 
-        public ActorPersonDto GetById(int id)
+        public ActorPersonDto Get(int id)
         {
             using (var adapter = new DataAccessAdapter())
             {

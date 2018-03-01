@@ -26,7 +26,7 @@ namespace DataAccess
             }
         }
 
-        public CoreActorIncidentDto GetById(int id)
+        public CoreActorIncidentDto Get(int id)
         {
             using (var adapter = new DataAccessAdapter())
             {

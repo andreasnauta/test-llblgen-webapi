@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(repository.GetById(id));
+            return Ok(repository.Get(id));
         }
 
         // POST api/values

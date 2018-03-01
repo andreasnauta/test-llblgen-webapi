@@ -26,7 +26,7 @@ namespace DataAccess
             }
         }
 
-        public SpecificItemDto GetById(int id)
+        public SpecificItemDto Get(int id)
         {
             using (var adapter = new DataAccessAdapter())
             {
