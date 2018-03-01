@@ -161,11 +161,12 @@ namespace EntityModel.Linq
 						   join core_Item in this.Item on core_Collection.Id equals core_Item.CollectionId
 						   join domain_DomainItem in this.DomainItem on core_Collection.Id equals domain_DomainItem.CollectionId
 						   join core_ActorIncident in this.ActorIncident on core_Incident.Id equals core_ActorIncident.IncidentId
-						   join core_Actor in this.Actor on core_ActorIncident.ActorId equals core_Actor.Id
 						   join actor_Person in this.Person on core_ActorIncident.ActorId equals actor_Person.Id
-						   select new {core_Collection, specific_SpecificItem, core_Incident, core_Item, domain_DomainItem, core_ActorIncident, core_Actor, actor_Person };
-			return current1.Select(v=>new EntityModel.TypedListClasses.SpecificItemTypedListRow() { SpecificItemNote = v.specific_SpecificItem.Note, IncidentGrouping = v.core_Incident.Grouping, IncidentCollectionId = v.core_Incident.CollectionId, CollectionName = v.core_Collection.Name, CollectionId = v.core_Collection.Id, IncidentId = v.core_Incident.Id, IncidentItemId = v.core_Incident.ItemId, ItemCollectionId = v.core_Item.CollectionId, ItemDescription = v.core_Item.Description, ItemId = v.core_Item.Id, DomainItemOldItemId = v.domain_DomainItem.OldItemId, ActorId = v.core_Actor.Id, ActorCollectionId = v.core_Actor.CollectionId, PersonLastname = v.actor_Person.Lastname, PersonFirstname = v.actor_Person.Firstname, ActorIncidentActorId = v.core_ActorIncident.ActorId, ActorIncidentId = v.core_ActorIncident.Id, ActorIncidentIncidentId = v.core_ActorIncident.IncidentId });
+						   join core_Actor in this.Actor on core_ActorIncident.ActorId equals core_Actor.Id
+						   select new EntityModel.TypedListClasses.SpecificItemTypedListRow() { SpecificItemNote = specific_SpecificItem.Note, IncidentGrouping = core_Incident.Grouping, IncidentCollectionId = core_Incident.CollectionId, CollectionName = core_Collection.Name, CollectionId = core_Collection.Id, IncidentId = core_Incident.Id, IncidentItemId = core_Incident.ItemId, ItemCollectionId = core_Item.CollectionId, ItemDescription = core_Item.Description, ItemId = core_Item.Id, DomainItemOldItemId = domain_DomainItem.OldItemId, ActorId = core_Actor.Id, ActorCollectionId = core_Actor.CollectionId, PersonLastname = actor_Person.Lastname, PersonFirstname = actor_Person.Firstname, ActorIncidentActorId = core_ActorIncident.ActorId, ActorIncidentId = core_ActorIncident.Id, ActorIncidentIncidentId = core_ActorIncident.IncidentId };
+			return current1;
 		}
+
 
 		#region Class Property Declarations
 		/// <summary> Gets / sets the IDataAccessAdapter to use for the queries created with this meta data object.</summary>

@@ -264,11 +264,11 @@
         <Field FieldAlias="ActorIncidentIncidentId" Caption="IncidentId" TargetField="Core.ActorIncident.IncidentId" />
       </Fields>
       <Relationships>
-        <Relationship Name="Core.Actor.ActorIncidents-Core.ActorIncident.Actor" StartAlias="Core.Actor" EndAlias="Core.ActorIncident" JoinHint="1" StartAliasIsStartVertex="true" />
         <Relationship Name="Core.Actor.ActorIncidents-Core.ActorIncident.Actor" StartAlias="Actor.Person" EndAlias="Core.ActorIncident" JoinHint="1" StartAliasIsStartVertex="true" />
+        <Relationship Name="Core.Actor.ActorIncidents-Core.ActorIncident.Actor" StartAlias="Core.Actor" EndAlias="Core.ActorIncident" JoinHint="1" StartAliasIsStartVertex="true" />
+        <Relationship Name="Core.Collection.Items-Core.Item.Collection" StartAlias="Core.Collection" EndAlias="Specific.SpecificItem" JoinHint="1" StartAliasIsStartVertex="true" />
         <Relationship Name="Core.Collection.Items-Core.Item.Collection" StartAlias="Core.Item" EndAlias="Core.Collection" JoinHint="1" />
         <Relationship Name="Core.Collection.Items-Core.Item.Collection" StartAlias="Domain.DomainItem" EndAlias="Core.Collection" JoinHint="1" />
-        <Relationship Name="Core.Collection.Items-Core.Item.Collection" StartAlias="Core.Collection" EndAlias="Specific.SpecificItem" JoinHint="1" StartAliasIsStartVertex="true" />
         <Relationship Name="Core.Incident.ActorIncidents-Core.ActorIncident.Incident" StartAlias="Core.ActorIncident" EndAlias="Core.Incident" JoinHint="1" />
         <Relationship Name="Core.Item.Incidents-Core.Incident.Item" StartAlias="Core.Incident" EndAlias="Specific.SpecificItem" JoinHint="1" />
       </Relationships>
