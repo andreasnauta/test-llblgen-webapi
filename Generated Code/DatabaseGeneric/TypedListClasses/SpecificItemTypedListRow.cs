@@ -13,6 +13,13 @@ namespace EntityModel.TypedListClasses
 	/// <summary>Class which represents a row in the typed list 'Specific.SpecificItemTypedList'.</summary>
 	/// <remarks>This class is a result class for a query, which is produced with the method <see cref="EntityModel.Linq.LinqMetaData.GetSpecificItemTypedListTypedList"/>.
 	/// Contains the following entity definition(s):
+	/// Entity: Actor.Person. <br/>
+	/// Entity: Core.Actor. <br/>
+	/// Entity: Core.ActorIncident. <br/>
+	/// Entity: Core.Collection. <br/>
+	/// Entity: Core.Incident. <br/>
+	/// Entity: Core.Item. <br/>
+	/// Entity: Domain.DomainItem. <br/>
 	/// Entity: Specific.SpecificItem. <br/>
 	/// Custom Properties: <br/>
 	/// </remarks>
@@ -30,16 +37,42 @@ namespace EntityModel.TypedListClasses
 		}
 
 		#region Class Property Declarations
-		/// <summary>Gets or sets the CollectionId field. Mapped onto 'Specific.SpecificItem.CollectionId'</summary>
+		/// <summary>Gets or sets the SpecificItemNote field. Mapped onto 'Specific.SpecificItem.Note'</summary>
+		public System.String SpecificItemNote { get; set; }
+		/// <summary>Gets or sets the IncidentGrouping field. Mapped onto 'Core.Incident.Grouping'</summary>
+		public Nullable<System.Int32> IncidentGrouping { get; set; }
+		/// <summary>Gets or sets the IncidentCollectionId field. Mapped onto 'Core.Incident.CollectionId'</summary>
+		public System.Int32 IncidentCollectionId { get; set; }
+		/// <summary>Gets or sets the CollectionName field. Mapped onto 'Core.Collection.Name'</summary>
+		public System.String CollectionName { get; set; }
+		/// <summary>Gets or sets the CollectionId field. Mapped onto 'Core.Collection.Id'</summary>
 		public System.Int32 CollectionId { get; set; }
-		/// <summary>Gets or sets the Description field. Mapped onto 'Specific.SpecificItem.Description'</summary>
-		public System.String Description { get; set; }
-		/// <summary>Gets or sets the Id field. Mapped onto 'Specific.SpecificItem.Id'</summary>
-		public System.Int32 Id { get; set; }
-		/// <summary>Gets or sets the Note field. Mapped onto 'Specific.SpecificItem.Note'</summary>
-		public System.String Note { get; set; }
-		/// <summary>Gets or sets the OldItemId field. Mapped onto 'Specific.SpecificItem.OldItemId'</summary>
-		public System.Int32 OldItemId { get; set; }
+		/// <summary>Gets or sets the IncidentId field. Mapped onto 'Core.Incident.Id'</summary>
+		public System.Int32 IncidentId { get; set; }
+		/// <summary>Gets or sets the IncidentItemId field. Mapped onto 'Core.Incident.ItemId'</summary>
+		public System.Int32 IncidentItemId { get; set; }
+		/// <summary>Gets or sets the ItemCollectionId field. Mapped onto 'Core.Item.CollectionId'</summary>
+		public System.Int32 ItemCollectionId { get; set; }
+		/// <summary>Gets or sets the ItemDescription field. Mapped onto 'Core.Item.Description'</summary>
+		public System.String ItemDescription { get; set; }
+		/// <summary>Gets or sets the ItemId field. Mapped onto 'Core.Item.Id'</summary>
+		public System.Int32 ItemId { get; set; }
+		/// <summary>Gets or sets the DomainItemOldItemId field. Mapped onto 'Domain.DomainItem.OldItemId'</summary>
+		public System.Int32 DomainItemOldItemId { get; set; }
+		/// <summary>Gets or sets the ActorId field. Mapped onto 'Core.Actor.Id'</summary>
+		public System.Int32 ActorId { get; set; }
+		/// <summary>Gets or sets the ActorCollectionId field. Mapped onto 'Core.Actor.CollectionId'</summary>
+		public System.Int32 ActorCollectionId { get; set; }
+		/// <summary>Gets or sets the PersonLastname field. Mapped onto 'Actor.Person.Lastname'</summary>
+		public System.String PersonLastname { get; set; }
+		/// <summary>Gets or sets the PersonFirstname field. Mapped onto 'Actor.Person.Firstname'</summary>
+		public System.String PersonFirstname { get; set; }
+		/// <summary>Gets or sets the ActorIncidentActorId field. Mapped onto 'Core.ActorIncident.ActorId'</summary>
+		public System.Int32 ActorIncidentActorId { get; set; }
+		/// <summary>Gets or sets the ActorIncidentId field. Mapped onto 'Core.ActorIncident.Id'</summary>
+		public System.Int32 ActorIncidentId { get; set; }
+		/// <summary>Gets or sets the ActorIncidentIncidentId field. Mapped onto 'Core.ActorIncident.IncidentId'</summary>
+		public System.Int32 ActorIncidentIncidentId { get; set; }
 		#endregion
 	}
 }

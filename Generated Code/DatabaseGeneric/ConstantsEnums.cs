@@ -125,16 +125,42 @@ namespace EntityModel
 	/// <summary>Index enum to fast-access TypedList Fields in the Columns collection of the Typed List: SpecificItemTypedList</summary>
 	public enum SpecificItemTypedListTypedListFieldIndex
 	{
+		///<summary>SpecificItemNote</summary>
+		SpecificItemNote,
+		///<summary>IncidentGrouping</summary>
+		IncidentGrouping,
+		///<summary>IncidentCollectionId</summary>
+		IncidentCollectionId,
+		///<summary>CollectionName</summary>
+		CollectionName,
 		///<summary>CollectionId</summary>
 		CollectionId,
-		///<summary>Description</summary>
-		Description,
-		///<summary>Id</summary>
-		Id,
-		///<summary>Note</summary>
-		Note,
-		///<summary>OldItemId</summary>
-		OldItemId,
+		///<summary>IncidentId</summary>
+		IncidentId,
+		///<summary>IncidentItemId</summary>
+		IncidentItemId,
+		///<summary>ItemCollectionId</summary>
+		ItemCollectionId,
+		///<summary>ItemDescription</summary>
+		ItemDescription,
+		///<summary>ItemId</summary>
+		ItemId,
+		///<summary>DomainItemOldItemId</summary>
+		DomainItemOldItemId,
+		///<summary>ActorId</summary>
+		ActorId,
+		///<summary>ActorCollectionId</summary>
+		ActorCollectionId,
+		///<summary>PersonLastname</summary>
+		PersonLastname,
+		///<summary>PersonFirstname</summary>
+		PersonFirstname,
+		///<summary>ActorIncidentActorId</summary>
+		ActorIncidentActorId,
+		///<summary>ActorIncidentId</summary>
+		ActorIncidentId,
+		///<summary>ActorIncidentIncidentId</summary>
+		ActorIncidentIncidentId,
 		/// <summary></summary>
 		AmountOfFields
 	}
@@ -165,7 +191,6 @@ namespace EntityModel
 	
 	// __LLBLGENPRO_USER_CODE_REGION_START CustomUserConstants
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	#endregion
 
 	#region Included code

@@ -155,7 +155,16 @@ namespace EntityModel.Linq
 		public IQueryable<EntityModel.TypedListClasses.SpecificItemTypedListRow> GetSpecificItemTypedListTypedList()
 		{
 			var current0 = this.SpecificItem;
-			return current0.Select(v=>new EntityModel.TypedListClasses.SpecificItemTypedListRow() { CollectionId = v.CollectionId, Description = v.Description, Id = v.Id, Note = v.Note, OldItemId = v.OldItemId });
+			var current1 = from specific_SpecificItem in current0
+						   join core_Collection in this.Collection on specific_SpecificItem.CollectionId equals core_Collection.Id
+						   join core_Incident in this.Incident on specific_SpecificItem.Id equals core_Incident.ItemId
+						   join core_Item in this.Item on core_Collection.Id equals core_Item.CollectionId
+						   join domain_DomainItem in this.DomainItem on core_Collection.Id equals domain_DomainItem.CollectionId
+						   join core_ActorIncident in this.ActorIncident on core_Incident.Id equals core_ActorIncident.IncidentId
+						   join core_Actor in this.Actor on core_ActorIncident.ActorId equals core_Actor.Id
+						   join actor_Person in this.Person on core_ActorIncident.ActorId equals actor_Person.Id
+						   select new {core_Collection, specific_SpecificItem, core_Incident, core_Item, domain_DomainItem, core_ActorIncident, core_Actor, actor_Person };
+			return current1.Select(v=>new EntityModel.TypedListClasses.SpecificItemTypedListRow() { SpecificItemNote = v.specific_SpecificItem.Note, IncidentGrouping = v.core_Incident.Grouping, IncidentCollectionId = v.core_Incident.CollectionId, CollectionName = v.core_Collection.Name, CollectionId = v.core_Collection.Id, IncidentId = v.core_Incident.Id, IncidentItemId = v.core_Incident.ItemId, ItemCollectionId = v.core_Item.CollectionId, ItemDescription = v.core_Item.Description, ItemId = v.core_Item.Id, DomainItemOldItemId = v.domain_DomainItem.OldItemId, ActorId = v.core_Actor.Id, ActorCollectionId = v.core_Actor.CollectionId, PersonLastname = v.actor_Person.Lastname, PersonFirstname = v.actor_Person.Firstname, ActorIncidentActorId = v.core_ActorIncident.ActorId, ActorIncidentId = v.core_ActorIncident.Id, ActorIncidentIncidentId = v.core_ActorIncident.IncidentId });
 		}
 
 		#region Class Property Declarations

@@ -19,7 +19,7 @@ namespace DataAccess
             {
                 var data = new LinqMetaData(adapter);
 
-                return data.GetSpecificItemTypedListTypedList().Single(x => x.Id == id);
+                return data.GetSpecificItemTypedListTypedList().Single(x => x.ItemId == id);
             }
         }
     }

@@ -234,15 +234,44 @@
   <TypedListDefinitions>
     <TypedListDefinition Name="SpecificItemTypedList" GroupName="Specific">
       <EntityAliases>
+        <EntityAlias Entity="Actor:Person" />
+        <EntityAlias Entity="Core:Actor" />
+        <EntityAlias Entity="Core:ActorIncident" />
+        <EntityAlias Entity="Core:Collection" />
+        <EntityAlias Entity="Core:Incident" />
+        <EntityAlias Entity="Core:Item" />
+        <EntityAlias Entity="Domain:DomainItem" />
         <EntityAlias Entity="Specific:SpecificItem" />
       </EntityAliases>
       <Fields>
-        <Field FieldAlias="CollectionId" TargetField="Specific.SpecificItem.CollectionId" />
-        <Field FieldAlias="Description" TargetField="Specific.SpecificItem.Description" />
-        <Field FieldAlias="Id" TargetField="Specific.SpecificItem.Id" />
-        <Field FieldAlias="Note" TargetField="Specific.SpecificItem.Note" />
-        <Field FieldAlias="OldItemId" TargetField="Specific.SpecificItem.OldItemId" />
+        <Field FieldAlias="SpecificItemNote" Caption="Note" TargetField="Specific.SpecificItem.Note" />
+        <Field FieldAlias="IncidentGrouping" Caption="Grouping" TargetField="Core.Incident.Grouping" />
+        <Field FieldAlias="IncidentCollectionId" Caption="CollectionId" TargetField="Core.Incident.CollectionId" />
+        <Field FieldAlias="CollectionName" Caption="Name" TargetField="Core.Collection.Name" />
+        <Field FieldAlias="CollectionId" Caption="Id" TargetField="Core.Collection.Id" />
+        <Field FieldAlias="IncidentId" Caption="Id" TargetField="Core.Incident.Id" />
+        <Field FieldAlias="IncidentItemId" Caption="ItemId" TargetField="Core.Incident.ItemId" />
+        <Field FieldAlias="ItemCollectionId" Caption="CollectionId" TargetField="Core.Item.CollectionId" />
+        <Field FieldAlias="ItemDescription" Caption="Description" TargetField="Core.Item.Description" />
+        <Field FieldAlias="ItemId" Caption="Id" TargetField="Core.Item.Id" />
+        <Field FieldAlias="DomainItemOldItemId" Caption="OldItemId" TargetField="Domain.DomainItem.OldItemId" />
+        <Field FieldAlias="ActorId" Caption="Id" TargetField="Core.Actor.Id" />
+        <Field FieldAlias="ActorCollectionId" Caption="CollectionId" TargetField="Core.Actor.CollectionId" />
+        <Field FieldAlias="PersonLastname" Caption="Lastname" TargetField="Actor.Person.Lastname" />
+        <Field FieldAlias="PersonFirstname" Caption="Firstname" TargetField="Actor.Person.Firstname" />
+        <Field FieldAlias="ActorIncidentActorId" Caption="ActorId" TargetField="Core.ActorIncident.ActorId" />
+        <Field FieldAlias="ActorIncidentId" Caption="Id" TargetField="Core.ActorIncident.Id" />
+        <Field FieldAlias="ActorIncidentIncidentId" Caption="IncidentId" TargetField="Core.ActorIncident.IncidentId" />
       </Fields>
+      <Relationships>
+        <Relationship Name="Core.Actor.ActorIncidents-Core.ActorIncident.Actor" StartAlias="Core.Actor" EndAlias="Core.ActorIncident" JoinHint="1" StartAliasIsStartVertex="true" />
+        <Relationship Name="Core.Actor.ActorIncidents-Core.ActorIncident.Actor" StartAlias="Actor.Person" EndAlias="Core.ActorIncident" JoinHint="1" StartAliasIsStartVertex="true" />
+        <Relationship Name="Core.Collection.Items-Core.Item.Collection" StartAlias="Core.Item" EndAlias="Core.Collection" JoinHint="1" />
+        <Relationship Name="Core.Collection.Items-Core.Item.Collection" StartAlias="Domain.DomainItem" EndAlias="Core.Collection" JoinHint="1" />
+        <Relationship Name="Core.Collection.Items-Core.Item.Collection" StartAlias="Core.Collection" EndAlias="Specific.SpecificItem" JoinHint="1" StartAliasIsStartVertex="true" />
+        <Relationship Name="Core.Incident.ActorIncidents-Core.ActorIncident.Incident" StartAlias="Core.ActorIncident" EndAlias="Core.Incident" JoinHint="1" />
+        <Relationship Name="Core.Item.Incidents-Core.Incident.Item" StartAlias="Core.Incident" EndAlias="Specific.SpecificItem" JoinHint="1" />
+      </Relationships>
     </TypedListDefinition>
   </TypedListDefinitions>
   <TargetDatabases>

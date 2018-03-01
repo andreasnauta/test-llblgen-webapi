@@ -19,7 +19,6 @@ namespace EntityModel.FactoryClasses
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
 	
-	
 	/// <summary>general base class for the generated factories</summary>
 	[Serializable]
 	public partial class EntityFactoryBase2<TEntity> : EntityFactoryCore2
@@ -112,7 +111,6 @@ namespace EntityModel.FactoryClasses
 			IEntity2 toReturn = new PersonEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewPersonUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -133,7 +131,6 @@ namespace EntityModel.FactoryClasses
 			IEntity2 toReturn = new ActorEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewActorUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -154,7 +151,6 @@ namespace EntityModel.FactoryClasses
 			IEntity2 toReturn = new ActorIncidentEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewActorIncidentUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -175,7 +171,6 @@ namespace EntityModel.FactoryClasses
 			IEntity2 toReturn = new CollectionEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewCollectionUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -196,7 +191,6 @@ namespace EntityModel.FactoryClasses
 			IEntity2 toReturn = new IncidentEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewIncidentUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -217,7 +211,6 @@ namespace EntityModel.FactoryClasses
 			IEntity2 toReturn = new ItemEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewItemUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -238,7 +231,6 @@ namespace EntityModel.FactoryClasses
 			IEntity2 toReturn = new DomainItemEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewDomainItemUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -259,7 +251,6 @@ namespace EntityModel.FactoryClasses
 			IEntity2 toReturn = new SpecificItemEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSpecificItemUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
