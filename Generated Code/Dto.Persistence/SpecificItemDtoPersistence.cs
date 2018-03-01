@@ -117,8 +117,8 @@ namespace Dto.Persistence
 			toUpdate.CollectionId = dto.CollectionId;
 			toUpdate.Description = dto.Description;
 			toUpdate.Id = dto.Id;
-			toUpdate.OldItemId = dto.OldItemId;
 			toUpdate.Note = dto.Note;
+			toUpdate.OldItemId = dto.OldItemId;
 		}
 	}
 }

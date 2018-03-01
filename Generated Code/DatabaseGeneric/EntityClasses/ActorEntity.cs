@@ -60,7 +60,7 @@ namespace EntityModel.EntityClasses
 		}
 		
 		/// <summary> CTor</summary>
-		public ActorEntity():base("ActorEntity")
+		internal ActorEntity():base("ActorEntity")
 		{
 			InitClassEmpty(null, null);
 		}
@@ -68,14 +68,14 @@ namespace EntityModel.EntityClasses
 		/// <summary> CTor</summary>
 		/// <remarks>For framework usage.</remarks>
 		/// <param name="fields">Fields object to set as the fields for this entity.</param>
-		public ActorEntity(IEntityFields2 fields):base("ActorEntity")
+		internal ActorEntity(IEntityFields2 fields):base("ActorEntity")
 		{
 			InitClassEmpty(null, fields);
 		}
 
 		/// <summary> CTor</summary>
 		/// <param name="validator">The custom validator object for this ActorEntity</param>
-		public ActorEntity(IValidator validator):base("ActorEntity")
+		internal ActorEntity(IValidator validator):base("ActorEntity")
 		{
 			InitClassEmpty(validator, null);
 		}
@@ -83,7 +83,7 @@ namespace EntityModel.EntityClasses
 		/// <summary> CTor</summary>
 		/// <param name="id">PK value for Actor which data should be fetched into this Actor object</param>
 		/// <remarks>The entity is not fetched by this constructor. Use a DataAccessAdapter for that.</remarks>
-		public ActorEntity(System.Int32 id):base("ActorEntity")
+		internal ActorEntity(System.Int32 id):base("ActorEntity")
 		{
 			InitClassEmpty(null, null);
 			this.Id = id;
@@ -93,7 +93,7 @@ namespace EntityModel.EntityClasses
 		/// <param name="id">PK value for Actor which data should be fetched into this Actor object</param>
 		/// <param name="validator">The custom validator object for this ActorEntity</param>
 		/// <remarks>The entity is not fetched by this constructor. Use a DataAccessAdapter for that.</remarks>
-		public ActorEntity(System.Int32 id, IValidator validator):base("ActorEntity")
+		internal ActorEntity(System.Int32 id, IValidator validator):base("ActorEntity")
 		{
 			InitClassEmpty(validator, null);
 			this.Id = id;

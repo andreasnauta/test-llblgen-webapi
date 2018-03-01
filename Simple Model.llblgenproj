@@ -139,7 +139,7 @@
           <Field Name="Lastname" Type="string" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Actor" GroupName="Core" ObjectID="fabcf645-49b5-4e80-aee1-dcd4909e0141" InheritanceType="2">
+      <EntityDefinition Name="Actor" GroupName="Core" ObjectID="fabcf645-49b5-4e80-aee1-dcd4909e0141" IsAbstract="true" InheritanceType="2">
         <Fields>
           <Field Name="CollectionId" Type="int" IsAutoCreated="true" />
           <Field Name="Id" Type="int" IsPrimaryKey="true" />
@@ -225,7 +225,9 @@
   </EntityModel>
   <TargetDatabases>
     <TargetDatabase Type="2D18D138-1DD2-467E-86CC-4838250611AE" SyncSource="1">
-      <ConnectionElements />
+      <ConnectionElements>
+        <ConnectionElement Name="Password" Value="" />
+      </ConnectionElements>
       <SystemSequences>
         <Sequence Name="SCOPE_IDENTITY()" />
         <Sequence Name="@@IDENTITY" />

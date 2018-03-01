@@ -93,8 +93,8 @@ namespace Dto.Persistence
 				return;
 			}
 			toUpdate.CollectionId = dto.CollectionId;
-			toUpdate.Id = dto.Id;
 			toUpdate.Firstname = dto.Firstname;
+			toUpdate.Id = dto.Id;
 			toUpdate.Lastname = dto.Lastname;
 		}
 	}
