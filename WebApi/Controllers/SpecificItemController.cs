@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Repository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Dynamic;
@@ -47,18 +48,12 @@ namespace WebAPI.Controllers
 
             expandoObject = ConvertToExpando(dto);
 
-            foreach (var incident in dto.Incidents)
+            foreach (var incident in expandoObject.Incidents)
             {
-                List<dynamic> actors = new List<dynamic>();
-
                 foreach (var actorIncident in incident.ActorIncidents)
                 {
-                    var actor = actorRepository.Get(actorIncident.ActorId);
-                    actors.Add(ConvertToExpando(actor));
+                    actorIncident.Actor = ConvertToExpando(actorRepository.Get(Convert.ToInt32(actorIncident.ActorId)));
                 }
-
-                expandoObject.Incidents.Actors = new ExpandoObject();
-                expandoObject.Incidents.Actors = actors;
             }
 
             return Ok(expandoObject);
