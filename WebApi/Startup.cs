@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Dto.DtoClasses;
+using EntityModel.EntityClasses;
 using EntityModel.TypedListClasses;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +33,7 @@ namespace LLBLGenTest
                 c.SwaggerDoc("v1", new Info { Title = "Test Api", Version = "v1" });
             });
 
+            services.AddScoped<IFullItemRepository<SpecificItemEntity>>(s => new FullItemRepository(connectionString));
             services.AddScoped<ITypedListRepository<SpecificItemTypedListRow>>(s => new SpecificItemTypedListRepository(connectionString));
             services.AddScoped<IRepository<SpecificItemDto>>(s => new SpecificItemRepository(connectionString));
             services.AddScoped<IRepository<CoreCollectionDto>>(s => new CollectionRepository(connectionString));
